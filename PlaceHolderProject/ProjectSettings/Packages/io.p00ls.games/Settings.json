@@ -1,0 +1,26 @@
+{
+    "m_Dictionary": {
+        "m_DictionaryValues": [
+            {
+                "type": "P00LS.Games.Editor.EnvConfig, P00LS.Games.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "key": "devel.conf",
+                "value": "{\"m_Value\":{\"apiKey\":\"fake\",\"appId\":\"fake\"}}"
+            },
+            {
+                "type": "P00LS.Games.Editor.EnvConfig, P00LS.Games.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "key": "prod.conf",
+                "value": "{\"m_Value\":{\"apiKey\":\"fake\",\"appId\":\"fake\"}}"
+            },
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "general.gameId",
+                "value": "{\"m_Value\":\"fake\"}"
+            },
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "general.blockId",
+                "value": "{\"m_Value\":\"\"}"
+            }
+        ]
+    }
+}

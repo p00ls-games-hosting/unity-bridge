@@ -1,0 +1,11 @@
+{
+  "name": "io.p00ls.games",
+  "version": "0.0.1",
+  "displayName": "P00LS Games SDK",
+  "description": "Bridge to p00ls games js sdk",
+  "unity": "2022.3",
+  "documentationUrl": "https://github.com/p00ls-games-hosting/documentation/wiki",
+  "dependencies": {
+    "com.unity.settings-manager": "2.0.1"
+  }
+}

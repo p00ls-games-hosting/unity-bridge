@@ -1,0 +1,10 @@
+{
+  "name": "P00LS.Games.Editor",
+  "references": [
+    "Unity.Settings.Editor"
+  ],
+  "autoReferenced": true,
+  "includePlatforms": [
+    "Editor"
+  ]
+}

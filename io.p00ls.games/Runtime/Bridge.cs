@@ -1,0 +1,49 @@
+using System;
+
+namespace P00LS.Games
+{
+    public interface IBridge
+    {
+        public event Action<PurchaseResult> OnPurchase;
+
+        public void SaveUserData(object data);
+
+        public void GetUserData<T>(Action<T> callback);
+
+        public void GetIdToken(Action<string> callback);
+
+        public void LogEvent(string eventName, object eventParams);
+
+        public void LogEvent(string eventName);
+
+        public UserProfile GetUserProfile();
+
+        public void ImpactHapticFeedback(ImpactFeedBackForce force);
+
+        public void NotificationHapticFeedback(NotificationFeedBackForce force);
+
+        public void SelectHapticFeedback();
+
+        public void InitPurchase(PurchaseParams purchaseParams);
+
+        public void ShowAd(Action<bool> callback);
+    }
+
+    public enum ImpactFeedBackForce
+    {
+        Light,
+        Medium,
+        Heavy,
+        Rigid,
+        Soft
+    }
+
+    public enum NotificationFeedBackForce
+    {
+        Error,
+        Success,
+        Warning,
+    }
+}
+
+
