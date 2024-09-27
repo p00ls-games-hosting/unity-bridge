@@ -7,7 +7,11 @@ This repository contains a unity package that will expose p00ls games services t
 
 ## How to install
 
-In Package Manager, choose to add from a git url, and input `https://github.com/p00ls-games-hosting/unitiy-bridge.git?path=io.p00ls.games`
+In Package Manager, choose to add from a git url, and input `https://github.com/p00ls-games-hosting/unity-bridge.git?path=io.p00ls.games`
+
+For details instruction, see [Getting started](https://github.com/p00ls-games-hosting/documentation/wiki/Getting-started-with-unity)
+
+Full documentation is available [here](https://github.com/p00ls-games-hosting/documentation/wiki)
 
 ## Repository organisation 
 
