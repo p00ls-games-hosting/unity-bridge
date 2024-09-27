@@ -306,6 +306,7 @@ PlayerSettings:
     P00LS_GAME_ID: fake
     P00LS_MESSAGING_SENDER_ID: 710487297939
     P00LS_PROJECT_ID: prj-p00ls-games-devel-b18a
+    P00LS_SDK_VERSION: v1.1
     P00LS_STORAGE_BUCKET: prj-p00ls-games-devel-b18a.appspot.com
   mobileMTRendering:
     Android: 1

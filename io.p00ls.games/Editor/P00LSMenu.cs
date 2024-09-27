@@ -6,8 +6,33 @@ namespace P00LS.Games.Editor
 {
     public class P00LSMenu
     {
-        [MenuItem("Services/Setup p00ls template")]
-        static void ImportWebGLTemplate()
+        [MenuItem("Services/P00LS/Import WebGL Template")]
+        public static void ImportWebGLTemplate()
+        {
+            CopyWebGLTemplate();
+            SetProjectWebGLTemplate();
+            SetCustomTemplateVariables();
+        }
+        
+        [MenuItem("Services/P00LS/Reset Template Variables")]
+        public static void SetCustomTemplateVariables()
+        {
+            ResetToDefault();
+            SetSplashScreenLogo();
+        }
+
+        private static void SetSplashScreenLogo()
+        {
+            var logo = (Sprite)AssetDatabase.LoadAssetAtPath("Packages/io.p00ls.games/Assets/Materials/Logo.png", typeof(Sprite));
+            PlayerSettings.SplashScreen.logos = new[] { PlayerSettings.SplashScreenLogo.Create(2f, logo) };
+        }
+
+        private static void SetProjectWebGLTemplate()
+        {
+            PlayerSettings.WebGL.template = "PROJECT:P00LS";
+        }
+
+        private static void ResetToDefault()
         {
             PlayerSettings.SetTemplateCustomValue("P00LS_ENV", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_API_KEY", "devel");
@@ -18,9 +43,10 @@ namespace P00LS.Games.Editor
             PlayerSettings.SetTemplateCustomValue("P00LS_APP_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_GAME_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v1.1");
+        }
 
-            var logo = (Sprite)AssetDatabase.LoadAssetAtPath("Packages/io.p00ls.games/Assets/Materials/Logo.png", typeof(Sprite));
-            PlayerSettings.SplashScreen.logos = new[] { PlayerSettings.SplashScreenLogo.Create(2f, logo) };
+        private static void CopyWebGLTemplate()
+        {
             if (!AssetDatabase.IsValidFolder("Assets/WebGLTemplates"))
             {
                 AssetDatabase.CreateFolder("Assets", "WebGLTemplates");
@@ -43,7 +69,6 @@ namespace P00LS.Games.Editor
                 Debug.Log("Importing WebGL Template");
                 FileUtil.CopyFileOrDirectory(source, destination);
             }
-            PlayerSettings.WebGL.template = "PROJECT:P00LS";
         }
     }
 }
