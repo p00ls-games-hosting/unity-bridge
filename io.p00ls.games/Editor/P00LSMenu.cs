@@ -17,6 +17,7 @@ namespace P00LS.Games.Editor
             PlayerSettings.SetTemplateCustomValue("P00LS_MESSAGING_SENDER_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_APP_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_GAME_ID", "devel");
+            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v1.1");
 
             var logo = (Sprite)AssetDatabase.LoadAssetAtPath("Packages/io.p00ls.games/Assets/Materials/Logo.png", typeof(Sprite));
             PlayerSettings.SplashScreen.logos = new[] { PlayerSettings.SplashScreenLogo.Create(2f, logo) };
