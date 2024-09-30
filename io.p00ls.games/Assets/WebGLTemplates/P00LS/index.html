@@ -33,6 +33,7 @@
     p00lsGamesSdk(firebaseConfig).then(sdk => {
         window.p00ls = sdk;
         console.log('P00ls SDK loaded');
+        sdk.tma.ready();
         loadUnity();
     });
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -78,7 +79,6 @@
             window.p00ls.purchase.onPurchase((params) => {
                 unityInstance.SendMessage('P00lSGamesSDK', 'OnPurchaseCallback', JSON.stringify(params));
             });
-            window.p00ls.tma.ready();
             window.unityInstance = unityInstance;
             
         }).catch(console.error);
