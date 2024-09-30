@@ -1,0 +1,9 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/Features.uss?fileID=7433441132597879392&amp;guid=0e18b2ac634a6425eb9eb812eace292a&amp;type=3#Features" />
+    <engine:Label text="P00LS SDK Kitchen Sink" class="custom-label" />
+    <engine:GroupBox text="Authentication" />
+    <engine:Button text="Get User Info" name="GetUserInfo" class="unity-base-field__aligned" style="white-space: pre;" />
+    <engine:Button text="Purchase Item" name="PurchaseItem" />
+    <engine:ListView />
+    <engine:Label text="Label" name="Log" />
+</engine:UXML>

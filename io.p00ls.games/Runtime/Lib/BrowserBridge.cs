@@ -82,7 +82,7 @@ namespace P00LS.Games
         public void OnPurchaseCallback(string value)
         {
             var rawPurchaseResult = FromJson<RawPurchaseResult>(value);
-            if (rawPurchaseResult.purchaseParams != null)
+            if (rawPurchaseResult.purchaseParams.itemId != null)
             {
                 OnPurchase?.Invoke(new PurchaseResult
                 {
@@ -144,6 +144,7 @@ namespace P00LS.Games
     }
 
 
+    [Serializable]
     internal class RawPurchaseResult
     {
         public string paymentId;
@@ -151,6 +152,7 @@ namespace P00LS.Games
         public string status;
     }
 
+    [Serializable]
     internal class RawPurchaseParams
     {
         public string itemId;
