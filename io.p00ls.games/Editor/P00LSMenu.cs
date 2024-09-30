@@ -11,9 +11,8 @@ namespace P00LS.Games.Editor
         {
             CopyWebGLTemplate();
             SetProjectWebGLTemplate();
-            SetCustomTemplateVariables();
         }
-        
+
         [MenuItem("Services/P00LS/Reset Template Variables")]
         public static void SetCustomTemplateVariables()
         {
@@ -23,7 +22,8 @@ namespace P00LS.Games.Editor
 
         private static void SetSplashScreenLogo()
         {
-            var logo = (Sprite)AssetDatabase.LoadAssetAtPath("Packages/io.p00ls.games/Assets/Materials/Logo.png", typeof(Sprite));
+            var logo = (Sprite)AssetDatabase.LoadAssetAtPath("Packages/io.p00ls.games/Assets/Materials/Logo.png",
+                typeof(Sprite));
             PlayerSettings.SplashScreen.logos = new[] { PlayerSettings.SplashScreenLogo.Create(2f, logo) };
         }
 
@@ -42,7 +42,7 @@ namespace P00LS.Games.Editor
             PlayerSettings.SetTemplateCustomValue("P00LS_MESSAGING_SENDER_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_APP_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_GAME_ID", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v1.1");
+            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v1.2");
         }
 
         private static void CopyWebGLTemplate()
@@ -57,16 +57,29 @@ namespace P00LS.Games.Editor
                 AssetDatabase.CreateFolder("Assets/WebGLTemplates", "P00LS");
             }
 
-            var source = Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS/index.html");
-            var destination = Path.Combine("Assets/WebGLTemplates/P00LS", "index.html");
+            if (!AssetDatabase.IsValidFolder("Assets/WebGLTemplates/P00LS/styles"))
+            {
+                AssetDatabase.CreateFolder("Assets/WebGLTemplates/P00LS", "styles");   
+            }
+
+            var indexSource = Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS/index.html");
+            var indexDestination = Path.Combine("Assets/WebGLTemplates/P00LS", "index.html");
+            var cssSource = Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS/styles/global.css");
+            var cssDestination = Path.Combine("Assets/WebGLTemplates/P00LS/styles", "global.css");
+            move(indexSource, indexDestination);
+            move(cssSource, cssDestination);
+        }
+
+        private static void move(string source, string destination)
+        {
             if (File.Exists(destination))
             {
-                Debug.Log("Replacing template");
+                Debug.Log("Replacing " + destination);
                 FileUtil.ReplaceFile(source, destination);
             }
             else
             {
-                Debug.Log("Importing WebGL Template");
+                Debug.Log("Importing WebGL Template " + destination);
                 FileUtil.CopyFileOrDirectory(source, destination);
             }
         }
