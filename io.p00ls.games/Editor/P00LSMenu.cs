@@ -25,6 +25,8 @@ namespace P00LS.Games.Editor
             var logo = (Sprite)AssetDatabase.LoadAssetAtPath("Packages/io.p00ls.games/Assets/Materials/Logo.png",
                 typeof(Sprite));
             PlayerSettings.SplashScreen.logos = new[] { PlayerSettings.SplashScreenLogo.Create(2f, logo) };
+            PlayerSettings.SplashScreen.backgroundColor = new Color(0f, 0f, 0f);
+            PlayerSettings.SplashScreen.blurBackgroundImage = true;
         }
 
         private static void SetProjectWebGLTemplate()
@@ -66,11 +68,11 @@ namespace P00LS.Games.Editor
             var indexDestination = Path.Combine("Assets/WebGLTemplates/P00LS", "index.html");
             var cssSource = Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS/styles/global.css");
             var cssDestination = Path.Combine("Assets/WebGLTemplates/P00LS/styles", "global.css");
-            move(indexSource, indexDestination);
-            move(cssSource, cssDestination);
+            Move(indexSource, indexDestination);
+            Move(cssSource, cssDestination);
         }
 
-        private static void move(string source, string destination)
+        private static void Move(string source, string destination)
         {
             if (File.Exists(destination))
             {
