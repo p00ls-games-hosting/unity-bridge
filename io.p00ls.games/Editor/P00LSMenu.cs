@@ -31,6 +31,7 @@ namespace P00LS.Games.Editor
             PlayerSettings.SplashScreen.logos = new[] { PlayerSettings.SplashScreenLogo.Create(2f, logo) };
             PlayerSettings.SplashScreen.backgroundColor = Color.black;
             PlayerSettings.SplashScreen.blurBackgroundImage = true;
+            PlayerSettings.SplashScreen.unityLogoStyle = PlayerSettings.SplashScreen.UnityLogoStyle.LightOnDark;
         }
 
         private static void SetProjectWebGLTemplate()
