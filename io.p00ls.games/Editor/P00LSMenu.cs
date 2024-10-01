@@ -17,6 +17,8 @@ namespace P00LS.Games.Editor
         public static void SetCustomTemplateVariables()
         {
             ResetToDefault();
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+            PlayerSettings.WebGL.nameFilesAsHashes = true;
             SetSplashScreenLogo();
         }
 
@@ -24,8 +26,10 @@ namespace P00LS.Games.Editor
         {
             var logo = (Sprite)AssetDatabase.LoadAssetAtPath("Packages/io.p00ls.games/Assets/Materials/Logo.png",
                 typeof(Sprite));
+            PlayerSettings.SplashScreen.show = true;
+            PlayerSettings.SplashScreen.showUnityLogo = false;
             PlayerSettings.SplashScreen.logos = new[] { PlayerSettings.SplashScreenLogo.Create(2f, logo) };
-            PlayerSettings.SplashScreen.backgroundColor = new Color(0f, 0f, 0f);
+            PlayerSettings.SplashScreen.backgroundColor = Color.black;
             PlayerSettings.SplashScreen.blurBackgroundImage = true;
         }
 
@@ -61,7 +65,7 @@ namespace P00LS.Games.Editor
 
             if (!AssetDatabase.IsValidFolder("Assets/WebGLTemplates/P00LS/styles"))
             {
-                AssetDatabase.CreateFolder("Assets/WebGLTemplates/P00LS", "styles");   
+                AssetDatabase.CreateFolder("Assets/WebGLTemplates/P00LS", "styles");
             }
 
             var indexSource = Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS/index.html");
