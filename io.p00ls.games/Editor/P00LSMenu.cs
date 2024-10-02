@@ -49,7 +49,7 @@ namespace P00LS.Games.Editor
             PlayerSettings.SetTemplateCustomValue("P00LS_MESSAGING_SENDER_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_APP_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_GAME_ID", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v1.2");
+            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v2.0");
         }
 
         private static void CopyWebGLTemplate()
