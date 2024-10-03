@@ -16,9 +16,9 @@ PlayerSettings:
   productName: PlaceHolderProject
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_ShowUnitySplashScreen: 1
-  m_ShowUnitySplashLogo: 1
+  m_ShowUnitySplashLogo: 0
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
@@ -40,7 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: c805c708889444bdb684b1417868980e, type: 3}
+  - logo: {fileID: 101209642910601267, guid: cb5f1470c22e94de29f6fd19f26f35d2, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -301,16 +301,16 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags:
-    P00LS_API_KEY: fake
-    P00LS_APP_ID: fake
-    P00LS_AUTH_DOMAIN: prj-p00ls-games-devel-b18a.firebaseapp.com
+    P00LS_API_KEY: devel
+    P00LS_APP_ID: devel
+    P00LS_AUTH_DOMAIN: devel
     P00LS_BLOCK_ID: 
     P00LS_ENV: devel
-    P00LS_GAME_ID: fake
-    P00LS_MESSAGING_SENDER_ID: 710487297939
-    P00LS_PROJECT_ID: prj-p00ls-games-devel-b18a
-    P00LS_SDK_VERSION: v1.1
-    P00LS_STORAGE_BUCKET: prj-p00ls-games-devel-b18a.appspot.com
+    P00LS_GAME_ID: devel
+    P00LS_MESSAGING_SENDER_ID: devel
+    P00LS_PROJECT_ID: devel
+    P00LS_SDK_VERSION: v2.0
+    P00LS_STORAGE_BUCKET: devel
   mobileMTRendering:
     Android: 1
     iPhone: 1
@@ -558,7 +558,7 @@ PlayerSettings:
   spritePackerPolicy: 
   webGLMemorySize: 32
   webGLExceptionSupport: 1
-  webGLNameFilesAsHashes: 0
+  webGLNameFilesAsHashes: 1
   webGLShowDiagnostics: 0
   webGLDataCaching: 1
   webGLDebugSymbols: 0

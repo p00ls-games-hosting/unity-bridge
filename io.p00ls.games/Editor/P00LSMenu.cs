@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +13,7 @@ namespace P00LS.Games.Editor
         {
             CopyWebGLTemplate();
             SetProjectWebGLTemplate();
+            SetSplashScreenLogo();
         }
 
         [MenuItem("Services/P00LS/Reset Template Variables")]
@@ -59,35 +62,39 @@ namespace P00LS.Games.Editor
                 AssetDatabase.CreateFolder("Assets", "WebGLTemplates");
             }
 
-            if (!AssetDatabase.IsValidFolder("Assets/WebGLTemplates/P00LS"))
+            if (AssetDatabase.IsValidFolder("Assets/WebGLTemplates/P00LS"))
             {
-                AssetDatabase.CreateFolder("Assets/WebGLTemplates", "P00LS");
+                AssetDatabase.DeleteAsset("Assets/WebGLTemplates/P00LS");
             }
 
-            if (!AssetDatabase.IsValidFolder("Assets/WebGLTemplates/P00LS/styles"))
-            {
-                AssetDatabase.CreateFolder("Assets/WebGLTemplates/P00LS", "styles");
-            }
-
-            var indexSource = Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS/index.html");
-            var indexDestination = Path.Combine("Assets/WebGLTemplates/P00LS", "index.html");
-            var cssSource = Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS/styles/global.css");
-            var cssDestination = Path.Combine("Assets/WebGLTemplates/P00LS/styles", "global.css");
-            Move(indexSource, indexDestination);
-            Move(cssSource, cssDestination);
+            Directory.CreateDirectory(Path.GetFullPath("Assets/WebGLTemplates/P00LS"));
+            Copy(Path.GetFullPath("Packages/io.p00ls.games/Assets/WebGLTemplates/P00LS"),
+                Path.GetFullPath("Assets/WebGLTemplates/P00LS"));
+            AssetDatabase.ImportAsset("Assets/WebGLTemplates/P00LS");
+            AssetDatabase.Refresh();
         }
 
-        private static void Move(string source, string destination)
+        private static void Copy(string source, string destination)
         {
-            if (File.Exists(destination))
+            var files = from file in Directory.EnumerateFiles(source)
+                where Path.GetExtension(file) != ".meta"
+                select new
+                {
+                    Source = file,
+                    Destination = Path.Combine(destination, Path.GetFileName(file))
+                };
+
+            foreach (var file in files)
             {
-                Debug.Log("Replacing " + destination);
-                FileUtil.ReplaceFile(source, destination);
+                Debug.Log($"copy ${file.Source} to ${file.Destination}");
+                File.Copy(file.Source, file.Destination);
             }
-            else
+
+            foreach (var directory in Directory.EnumerateDirectories(source))
             {
-                Debug.Log("Importing WebGL Template " + destination);
-                FileUtil.CopyFileOrDirectory(source, destination);
+                Directory.CreateDirectory(Path.Combine(destination, Path.GetFileName(directory)));
+                Debug.Log($"copy ${directory} to ${destination}");
+                Copy(directory, Path.Combine(destination, Path.GetFileName(directory)));
             }
         }
     }

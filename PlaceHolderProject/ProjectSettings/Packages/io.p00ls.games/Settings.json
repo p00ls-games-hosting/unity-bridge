@@ -4,7 +4,7 @@
             {
                 "type": "P00LS.Games.Editor.EnvConfig, P00LS.Games.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "devel.conf",
-                "value": "{\"m_Value\":{\"apiKey\":\"fake\",\"appId\":\"fake\"}}"
+                "value": "{\"m_Value\":{\"apiKey\":\"AIzaSyBnsuip4cFcAz3OKYR_jVOz-vBVdn65PP8\",\"appId\":\"1:710487297939:web:6c9381459457c5cb232266\"}}"
             },
             {
                 "type": "P00LS.Games.Editor.EnvConfig, P00LS.Games.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -14,7 +14,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "general.gameId",
-                "value": "{\"m_Value\":\"fake\"}"
+                "value": "{\"m_Value\":\"hello-dino\"}"
             },
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",

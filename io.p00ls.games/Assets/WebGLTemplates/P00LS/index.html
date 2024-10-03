@@ -8,69 +8,19 @@
             content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes"
     />
     <title>{{{ PRODUCT_NAME }}}</title>
-    <link rel="stylesheet" type="text/css" href="./styles/global.css">
+    <link rel="stylesheet" type="text/css" href="./TemplateData/global.css">
 </head>
-<body style="text-align: center; padding: 0; border: 0; margin: 0;">
-<canvas id="unity-canvas" tabindex="-1"
-        style="background: {{{ BACKGROUND_FILENAME ? 'url(\'Build/' + BACKGROUND_FILENAME.replace(/'/g, '%27') + '\') center / cover' : BACKGROUND_COLOR }}}"></canvas>
-<script src="Build/{{{ LOADER_FILENAME }}}"></script>
-
-<script type="module">
-    import {p00lsGamesSdk} from 'https://assets.prod.p00ls.io/p00ls-games/p00lssdk/{{{ P00LS_SDK_VERSION }}}.js';
-    const firebaseConfig = {
-        apiKey: "{{{ P00LS_API_KEY }}}",
-        authDomain: "{{{ P00LS_AUTH_DOMAIN }}}",
-        projectId: "{{{ P00LS_PROJECT_ID }}}",
-        storageBucket: "{{{ P00LS_STORAGE_BUCKET }}}",
-        messagingSenderId: "{{{ P00LS_MESSAGING_SENDER_ID }}}",
-        appId: "{{{ P00LS_APP_ID }}}",
-        env: "{{{ P00LS_ENV }}}",
-        gameId: "{{{ P00LS_GAME_ID }}}",
-        #if P00LS_BLOCK_ID
-        blockId: "{{{ P00LS_BLOCK_ID }}}",
-        #endif
-    }
-    
-    p00lsGamesSdk(firebaseConfig).then(sdk => {
-        window.p00ls = sdk;
-        console.log('P00ls SDK loaded');
-        sdk.tma.ready();
-        loadUnity();
-    });
-    function loadUnity() {
-        const options =  {
-            dataUrl: "Build/{{{ DATA_FILENAME }}}",
-            frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
-            #if USE_THREADS
-            workerUrl: "Build/{{{ WORKER_FILENAME }}}",
-            #endif
-            #if USE_WASM
-            codeUrl: "Build/{{{ CODE_FILENAME }}}",
-            #endif
-            #if MEMORY_FILENAME
-            memoryUrl: "Build/{{{ MEMORY_FILENAME }}}",
-            #endif
-            #if SYMBOLS_FILENAME
-            symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
-            #endif
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
-            productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
-            productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
-            // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-            // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-        };
-        createUnityInstance(
-            document.querySelector("#unity-canvas"),
-            options
-        ).then(function (unityInstance) {
-            window.p00ls.purchase.onPurchase((params) => {
-                unityInstance.SendMessage('P00lSGamesSDK', 'OnPurchaseCallback', JSON.stringify(params));
-            });
-            window.unityInstance = unityInstance;
-            
-        }).catch(console.error);
-    }
-</script>
+<body>
+<div id="unity-container">
+    <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}} tabindex="-1"></canvas>
+    <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+        </div>
+    </div>
+    <div id="unity-warning"> </div>
+</div>
+<script type="module" src="index.js"></script>
 </body>
 </html>
