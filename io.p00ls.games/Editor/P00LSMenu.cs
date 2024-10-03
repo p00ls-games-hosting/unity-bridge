@@ -21,7 +21,7 @@ namespace P00LS.Games.Editor
         {
             ResetToDefault();
             PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
-            PlayerSettings.WebGL.nameFilesAsHashes = true;
+            PlayerSettings.WebGL.nameFilesAsHashes = false;
             SetSplashScreenLogo();
         }
 
