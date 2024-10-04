@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -6,7 +5,7 @@ using UnityEngine;
 
 namespace P00LS.Games.Editor
 {
-    public class P00LSMenu
+    internal class P00LSMenu
     {
         [MenuItem("Services/P00LS/Import WebGL Template")]
         public static void ImportWebGLTemplate()

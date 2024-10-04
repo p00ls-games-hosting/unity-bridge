@@ -38,7 +38,6 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    display: none
 }
 
 #unity-progress-bar-empty {
@@ -48,10 +47,16 @@ body {
     height: 18px;
     margin-top: 10px;
     border: 2px solid var(--charcoal-grey);
+    display: none;
 }
 
 #unity-progress-bar-full {
     width: 0;
     height: 100%;
     background-color: var(--lucky-lime);
+}
+
+#unity-init {
+    color: var(--lucky-lime);
+    text-align: center;
 }

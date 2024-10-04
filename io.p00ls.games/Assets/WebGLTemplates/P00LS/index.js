@@ -1,4 +1,5 @@
 import {p00lsGamesSdk} from 'https://assets.prod.p00ls.io/p00ls-games/p00lssdk/{{{ P00LS_SDK_VERSION }}}.js';
+
 const firebaseConfig = {
     apiKey: "{{{ P00LS_API_KEY }}}",
     authDomain: "{{{ P00LS_AUTH_DOMAIN }}}",
@@ -42,7 +43,8 @@ p00lsGamesSdk(firebaseConfig).then(sdk => {
 });
 
 function loadUnity() {
-    document.querySelector("#unity-loading-bar").style.display = "block";
+    document.querySelector("#unity-init").style.display = "none";
+    document.querySelector("#unity-progress-bar-empty").style.display = "block";
     var script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
@@ -51,7 +53,8 @@ function loadUnity() {
             document.querySelector("#unity-canvas"),
             config,
             (progress) => {
-                document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+                console.log("Progress", progress);
+                document.querySelector("#unity-progress-bar-full").style.width = `${100 * (progress + 0.1)}%`;
             }
         )
         .then(function (unityInstance) {
