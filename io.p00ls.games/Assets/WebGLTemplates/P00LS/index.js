@@ -1,70 +1,95 @@
-import {p00lsGamesSdk} from 'https://assets.prod.p00ls.io/p00ls-games/p00lssdk/{{{ P00LS_SDK_VERSION }}}.js';
+import {p00lsConfiguration, unityConfiguration, loaderUrl, sdkVersion} from './config.js';
 
-const firebaseConfig = {
-    apiKey: "{{{ P00LS_API_KEY }}}",
-    authDomain: "{{{ P00LS_AUTH_DOMAIN }}}",
-    projectId: "{{{ P00LS_PROJECT_ID }}}",
-    storageBucket: "{{{ P00LS_STORAGE_BUCKET }}}",
-    messagingSenderId: "{{{ P00LS_MESSAGING_SENDER_ID }}}",
-    appId: "{{{ P00LS_APP_ID }}}",
-    env: "{{{ P00LS_ENV }}}",
-    gameId: "{{{ P00LS_GAME_ID }}}",
-    #if P00LS_BLOCK_ID
-    blockId: "{{{ P00LS_BLOCK_ID }}}",
-    #endif
-};
+const bufferedEvents = [];
 
-var buildUrl = "Build";
-var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
-var config = {
-    arguments: [],
-    dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
-    frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
-    #if USE_THREADS
-    workerUrl: buildUrl + "/{{{ WORKER_FILENAME }}}",
-    #endif
-    #if USE_WASM
-    codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
-    #endif
-    #if SYMBOLS_FILENAME
-    symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
-    #endif
-    streamingAssetsUrl: "StreamingAssets",
-    companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
-    productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
-    productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}}
-};
+window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName, param]);
 
-
-p00lsGamesSdk(firebaseConfig).then(sdk => {
-    window.p00ls = sdk;
+(async () => {
+    const {p00lsGamesSdk} = await import(`https://assets.prod.p00ls.io/p00ls-games/p00lssdk/${sdkVersion}.js`);
+    const sdk = await p00lsGamesSdk(p00lsConfiguration);
     console.log('P00ls SDK loaded');
     loadUnity();
-});
 
-function loadUnity() {
-    document.querySelector("#unity-init").style.display = "none";
-    document.querySelector("#unity-progress-bar-empty").style.display = "block";
-    var script = document.createElement("script");
-    script.src = loaderUrl;
-    script.onload = () => {
-        window.p00ls.tma.ready();
-        createUnityInstance(
-            document.querySelector("#unity-canvas"),
-            config,
-            (progress) => {
-                console.log("Progress", progress);
-                document.querySelector("#unity-progress-bar-full").style.width = `${100 * (progress + 0.1)}%`;
+    function loadUnity() {
+        document.querySelector("#unity-init").style.display = "none";
+        document.querySelector("#unity-progress-bar-empty").style.display = "block";
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            sdk.tma.ready();
+            createUnityInstance(
+                document.querySelector("#unity-canvas"),
+                unityConfiguration,
+                progress,
+            )
+                .then(unityLoaded)
+                .catch(console.error);
+        };
+        document.body.appendChild(script);
+    }
+
+    function progress(progress) {
+        document.querySelector("#unity-progress-bar-full").style.width = `${100 * (progress + 0.1)}%`;
+    }
+
+    function unityLoaded(unityInstance) {
+        bindEvents(unityInstance);
+        document.querySelector("#unity-loading-bar").style.display = "none";
+        sdk.purchase.onPurchase((params) => {
+            unityInstance.SendMessage('P00lSGamesSDK', 'OnPurchaseCallback', JSON.stringify(params));
+        });
+        bufferedEvents.forEach(([eventName, params]) => {
+            window.dispatchUnityEvent(eventName, params);
+        });
+        bufferedEvents.splice(0, bufferedEvents.length);
+    }
+
+    function bindEvents(unityInstance) {
+        const handlers = createEventHandlers(unityInstance);
+        window.dispatchUnityEvent = function (eventName, param) {
+            if (handlers[eventName]) {
+                return handlers[eventName](param);
             }
-        )
-        .then(function (unityInstance) {
-            document.querySelector("#unity-loading-bar").style.display = "none";
-            window.p00ls.purchase.onPurchase((params) => {
-                unityInstance.SendMessage('P00lSGamesSDK', 'OnPurchaseCallback', JSON.stringify(params));
+        }
+    }
+
+
+    function createEventHandlers(unityInstance) {
+        return {
+            'getuserdata': ({objectName, callback, fallback}) => {
+                sdk.data.getUserData().then(function (data) {
+                    unityInstance.SendMessage(objectName, callback, data ? JSON.stringify(data) : "null");
+                }).catch(function (error) {
+                    unityInstance.SendMessage(objectName, fallback, JSON.stringify(error));
                 });
-            window.unityInstance = unityInstance;
-        })
-        .catch(console.error);
-    };
-    document.body.appendChild(script);   
-}
+            },
+            'saveuserdata': ({payload}) => {
+                sdk.data.saveUserData(payload);
+            },
+            'getidtoken': ({objectName, callback}) => {
+                sdk.auth.getIdToken().then(function (data) {
+                    unityInstance.SendMessage(objectName, callback, data);
+                });
+            },
+            'getuserprofile': () => {
+                return sdk.auth.userProfile;
+            },
+            'logevent': ({eventName, params}) => {
+                sdk.analytics.logEvent(eventName, params);
+            },
+            'hapticfeedback': ({type, style}) => {
+                sdk.tma.haptic(type, style);
+            },
+            'initpurchase': ({params}) => {
+                sdk.purchase.initPurchase(params);
+            },
+            'showad': ({objectName, callback}) => {
+                sdk.ads.show().then(function (data) {
+                    unityInstance.SendMessage(objectName, callback, data ? 1 : 0);
+                });
+            }
+        }
+    }
+
+})();
+
