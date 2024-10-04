@@ -1,10 +1,17 @@
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
+using System.Text;
 using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
+// ReSharper disable once CheckNamespace
 namespace P00LS.Games.Editor
 {
+    // ReSharper disable once InconsistentNaming
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal class P00LSMenu
     {
         [MenuItem("Services/P00LS/Import WebGL Template")]
@@ -22,6 +29,89 @@ namespace P00LS.Games.Editor
             PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
             PlayerSettings.WebGL.nameFilesAsHashes = true;
             SetSplashScreenLogo();
+        }
+
+
+        [MenuItem("Services/P00LS/Build And Deploy")]
+        public static void BuildAndDeploy()
+        {
+            var deployApiKey = P00LSGamesSettings.Instance.Get<string>("general.deployApiKey");
+            if (deployApiKey == "")
+            {
+                MissingApiKeyWindow.CreateApikeySaveWindow();
+                return;
+            }
+            Debug.Log(deployApiKey);
+            var buildRootPath = "build";
+            var buildDestPath = $"{buildRootPath}/build";
+            var buildZip = "build.zip";
+            Debug.Log($"Build And Deploy: {buildDestPath}");
+            var buildUrl = $"http://localhost:3000/api/build/{deployApiKey}";
+            CleanOldBuild(buildRootPath, buildZip);
+            Build(buildDestPath);
+            PostBuildToGamesPortal(buildUrl, buildZip, buildRootPath);
+            Debug.Log("Build file upload and successfully deployed");
+        }
+
+        private static void PostBuildToGamesPortal(string buildUrl,string buildZip, string buildRootPath)
+        {
+            ZipBuild(buildRootPath, buildZip);
+            WebClient myWebClient = new WebClient();
+            var response = myWebClient.UploadFile(buildUrl, buildZip);
+            Debug.Log(Encoding.UTF8.GetString(response));
+        }
+
+        private static void ZipBuild(string buildRootPath, string buildZip)
+        {
+            ZipFile.CreateFromDirectory(buildRootPath, buildZip);
+            Debug.Log($"Zip file created ${buildZip}");
+        }
+
+        private static void Build(string buildDestPath)
+        {
+            var scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(s => s.path).ToArray();
+            BuildPlayerOptions buildOptions = new BuildPlayerOptions
+            {
+                scenes = scenes,
+                locationPathName = buildDestPath,
+                target = BuildTarget.WebGL
+            };
+            BuildReport buildReport = BuildPipeline.BuildPlayer(buildOptions);
+            BuildSummary summary = buildReport.summary;
+
+            if (summary.result == BuildResult.Succeeded)
+            {
+                Debug.Log("Build succeeded: " + summary.totalSize + $" bytes under {buildDestPath}");
+            }
+
+
+            if (summary.result == BuildResult.Failed)
+            {
+                Debug.Log("Build failed");
+            }
+        }
+
+        private static void CleanOldBuild(string buildRootPath, string buildZip)
+        {
+            try
+            {
+                Directory.Delete(buildRootPath, true);
+            }
+            // ReSharper disable once RedundantEmptyFinallyBlock
+            finally
+            {
+                // nothing
+            }
+
+            try
+            {
+                File.Delete(buildZip);
+            }
+            // ReSharper disable once RedundantEmptyFinallyBlock
+            finally
+            {
+                // nothing
+            }
         }
 
         private static void SetSplashScreenLogo()
@@ -85,7 +175,7 @@ namespace P00LS.Games.Editor
 
             foreach (var file in files)
             {
-                Debug.Log($"copy ${file.Source} to ${file.Destination}");
+                Debug.Log($"copy {file.Source} to {file.Destination}");
                 File.Copy(file.Source, file.Destination);
             }
 
@@ -95,6 +185,21 @@ namespace P00LS.Games.Editor
                 Debug.Log($"copy ${directory} to ${destination}");
                 Copy(directory, Path.Combine(destination, Path.GetFileName(directory)));
             }
+        }
+    }
+    public class MissingApiKeyWindow : EditorWindow
+    {
+        
+        void OnGUI()
+        {
+            EditorGUILayout.HelpBox("Missing Deploy API Key\nUnity Settings -> POOLS Games -> Deploy API Key", MessageType.Info);
+            EditorGUILayout.HelpBox("Restart the build when api key is set", MessageType.Error);
+        }
+
+        public static void CreateApikeySaveWindow()
+        {
+            MissingApiKeyWindow window = ScriptableObject.CreateInstance<MissingApiKeyWindow>();
+            window.ShowUtility();
         }
     }
 }

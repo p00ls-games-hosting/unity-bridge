@@ -10,6 +10,9 @@ namespace P00LS.Games.Editor
         
         [UserSetting("General", "Block Id")] static SettingWrapper<string> _blockId =
             new("general.blockId", "");
+        
+        [UserSetting("General", "Deploy API Key")] static SettingWrapper<string> _deployApiKey =
+            new("general.deployApiKey", "");
 
         [UserSetting] static SettingWrapper<EnvConfig> _devel =
             new("devel.conf", new EnvConfig());
