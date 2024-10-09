@@ -45,13 +45,9 @@ namespace P00LS.Games.Editor
         {
             PlayerSettings.SetTemplateCustomValue("P00LS_ENV", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_API_KEY", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_AUTH_DOMAIN", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_PROJECT_ID", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_STORAGE_BUCKET", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_MESSAGING_SENDER_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_APP_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_GAME_ID", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v2.0");
+            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v2.1");
         }
 
         private static void CopyWebGLTemplate()
