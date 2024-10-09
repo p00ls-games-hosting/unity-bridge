@@ -1,9 +1,5 @@
 export const p00lsConfiguration = {
     apiKey: "{{{ P00LS_API_KEY }}}",
-    authDomain: "{{{ P00LS_AUTH_DOMAIN }}}",
-    projectId: "{{{ P00LS_PROJECT_ID }}}",
-    storageBucket: "{{{ P00LS_STORAGE_BUCKET }}}",
-    messagingSenderId: "{{{ P00LS_MESSAGING_SENDER_ID }}}",
     appId: "{{{ P00LS_APP_ID }}}",
     env: "{{{ P00LS_ENV }}}",
     gameId: "{{{ P00LS_GAME_ID }}}",
