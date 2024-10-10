@@ -47,7 +47,7 @@ namespace P00LS.Games.Editor
             PlayerSettings.SetTemplateCustomValue("P00LS_API_KEY", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_APP_ID", "devel");
             PlayerSettings.SetTemplateCustomValue("P00LS_GAME_ID", "devel");
-            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v2.1");
+            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v2.3");
         }
 
         private static void CopyWebGLTemplate()
