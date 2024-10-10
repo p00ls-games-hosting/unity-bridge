@@ -3,6 +3,7 @@ export const p00lsConfiguration = {
     appId: "{{{ P00LS_APP_ID }}}",
     env: "{{{ P00LS_ENV }}}",
     gameId: "{{{ P00LS_GAME_ID }}}",
+    gameVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
     #if P00LS_BLOCK_ID
     blockId: "{{{ P00LS_BLOCK_ID }}}",
     #endif
