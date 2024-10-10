@@ -306,7 +306,7 @@ PlayerSettings:
     P00LS_BLOCK_ID: 
     P00LS_ENV: devel
     P00LS_GAME_ID: devel
-    P00LS_SDK_VERSION: v2.1
+    P00LS_SDK_VERSION: v2.3
   mobileMTRendering:
     Android: 1
     iPhone: 1
