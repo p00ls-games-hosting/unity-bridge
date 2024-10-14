@@ -11,6 +11,12 @@ namespace P00LS.Games
         void OnPurchaseCallback(string value);
 
         void ShowAdCallback(bool value);
+        
+        void GetReferralLinkCallback(string value);
+        
+        void GetReferrerCallback(string value);
+        
+        void GetRefereesCallback(string value);
     }
 
     internal interface IInternalBridge : IBridge, IReceiver

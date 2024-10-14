@@ -1,0 +1,19 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:Template name="Features" src="project://database/Assets/Editor/Features.uxml?fileID=9197481963319205126&amp;guid=05c41af7aa6d74fc78adb6a231b91d42&amp;type=3#Features" />
+    <engine:Template name="ReferralUI" src="project://database/Assets/Editor/ReferralUI.uxml?fileID=9197481963319205126&amp;guid=f86a93e36c8594d89955437c5a5dc5b6&amp;type=3#ReferralUI" />
+    <Style src="project://database/Assets/Editor/Features.uss?fileID=7433441132597879392&amp;guid=0e18b2ac634a6425eb9eb812eace292a&amp;type=3#Features" />
+    <engine:Label text="P00LS SDK" name="Title" class="custom-label" />
+    <engine:VisualElement style="flex-grow: initial;">
+        <engine:TabView>
+            <engine:Tab label="Auth" name="Auth">
+                <engine:Instance template="Features" />
+            </engine:Tab>
+            <engine:Tab label="Referral" name="Referral">
+                <engine:Instance template="ReferralUI" />
+            </engine:Tab>
+        </engine:TabView>
+    </engine:VisualElement>
+    <engine:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0);">
+        <engine:Label name="Log" class="log" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); white-space: pre; color: rgb(13, 250, 21);" />
+    </engine:VisualElement>
+</engine:UXML>

@@ -34,5 +34,18 @@ mergeInto(LibraryManager.library, {
     },
     p00ls_ShowAd: function (objectName, callback) {
         dispatchUnityEvent('showad', {objectName: UTF8ToString(objectName), callback: UTF8ToString(callback)});
+    },
+    p00ls_GetReferralLink: function (objectName, callback) {
+        dispatchUnityEvent('getreferrallink', {objectName: UTF8ToString(objectName), callback: UTF8ToString(callback)});
+    },
+    p00ls_GetReferrer: function (objectName, callback) {
+        dispatchUnityEvent('getreferrer', {objectName: UTF8ToString(objectName), callback: UTF8ToString(callback)});
+    },
+    p00ls_GetReferees: function (params, objectName, callback) {
+        dispatchUnityEvent('getreferees', {
+            params: JSON.parse(UTF8ToString(params)),
+            objectName: UTF8ToString(objectName),
+            callback: UTF8ToString(callback)
+        });
     }
 });

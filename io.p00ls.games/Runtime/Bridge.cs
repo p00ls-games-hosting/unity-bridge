@@ -27,6 +27,12 @@ namespace P00LS.Games
         public void InitPurchase(PurchaseParams purchaseParams);
 
         public void ShowAd(Action<bool> callback);
+
+        public void GetReferralLink(Action<string> callback);
+
+        public void GetReferrer(Action<Referrer> callback);
+        
+        public void GetReferees(GetRefereesRequest request, Action<GetRefereesResult> callback);
     }
 
     public enum ImpactFeedBackForce
@@ -45,5 +51,3 @@ namespace P00LS.Games
         Warning,
     }
 }
-
-

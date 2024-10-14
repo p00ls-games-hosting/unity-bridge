@@ -58,7 +58,7 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
         return {
             'getuserdata': ({objectName, callback, fallback}) => {
                 sdk.data.getUserData().then(function (data) {
-                    unityInstance.SendMessage(objectName, callback, data ? JSON.stringify(data) : "null");
+                    unityInstance.SendMessage(objectName, callback, data ? JSON.stringify(data) : 'null');
                 }).catch(function (error) {
                     unityInstance.SendMessage(objectName, fallback, JSON.stringify(error));
                 });
@@ -87,6 +87,15 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                 sdk.ads.show().then(function (data) {
                     unityInstance.SendMessage(objectName, callback, data ? 1 : 0);
                 });
+            },
+            'getreferrallink': ({objectName, callback}) => {
+                sdk.referral.getReferralLink().then((link) => unityInstance.SendMessage(objectName, callback, link));
+            },
+            'getreferrer': ({objectName, callback}) => {
+                sdk.referral.getReferrer().then(referrer => unityInstance.SendMessage(objectName, callback, referrer ? JSON.stringify(referrer) : 'null'));
+            },
+            'getreferees': ({objectName, callback, params}) => {
+                sdk.referral.getReferees(params).then(result=>unityInstance.SendMessage(objectName, callback, JSON.stringify(result)));
             }
         }
     }

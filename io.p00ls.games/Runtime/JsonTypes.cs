@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace P00LS.Games
 {
@@ -40,5 +41,34 @@ namespace P00LS.Games
         public string username;
         public bool isPremium;
         public string game;
+        public string referrer;
+    }
+
+    [Serializable]
+    public class Referrer
+    {
+        public string firstName;
+    }
+
+    [Serializable]
+    public class Referee
+    {
+        public string firstName;
+        public DateTime createdAt;
+    }
+
+    [Serializable]
+    public class GetRefereesResult
+    {
+        public List<Referee> page;
+        public int total;
+        public string next;
+    }
+
+    [Serializable]
+    public class GetRefereesRequest
+    {
+        public string next;
+        public int pageSize;
     }
 }

@@ -1,4 +1,4 @@
-using System;
+using System.Globalization;
 using P00LS.Games;
 using UnityEngine;
 
@@ -6,19 +6,55 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private P00LSGamesSdk sdk;
-    [SerializeField] private KitchenSinkController ui;
+    private MainUIController _mainUIController;
+    private AuthController _auth;
+    private ReferralUIController _referralUI;
+
 
     private void Awake()
     {
-        ui.OnUserInfoAsked += OnUserInfoAsked;
-        ui.OnPurchaseItem += OnPurchaseItem;
+        _mainUIController = FindFirstObjectByType<MainUIController>();
+        _auth = FindFirstObjectByType<AuthController>();
+        _referralUI = FindFirstObjectByType<ReferralUIController>();
+
+        _auth.OnUserInfoAsked += OnUserInfoAsked;
+        _auth.OnPurchaseItem += OnPurchaseItem;
+
+        _referralUI.OnGetReferrer += OnGetReferrer;
+        _referralUI.OnGetReferralLink += OnGetReferralLink;
+        _referralUI.OnGetReferees += OnGetReferees;
+
         sdk.OnPurchase += OnPurchaseDone;
+    }
+
+    private void OnGetReferees()
+    {
+        sdk.GetReferees(null, referees =>
+        {
+            _mainUIController.Log($"Total: {referees.total}");
+            _mainUIController.AppendLog($"Next: {referees.next}");
+            foreach (var referee in referees.page)
+            {
+                _mainUIController.AppendLog(
+                    $"Referee: {referee.firstName}, {referee.createdAt.ToString(CultureInfo.InvariantCulture)}");
+            }
+        });
+    }
+
+    private void OnGetReferralLink()
+    {
+        sdk.GetReferralLink(link => { _mainUIController.Log(link); });
+    }
+
+    private void OnGetReferrer()
+    {
+        sdk.GetReferrer(referrer => { _mainUIController.Log(JsonUtility.ToJson(referrer, true)); });
     }
 
     private void OnPurchaseDone(PurchaseResult obj)
     {
-        var item = obj.purchaseParams = (PurchaseItemParams) obj.purchaseParams;
-        ui.Log(JsonUtility.ToJson(obj) + "\n" + JsonUtility.ToJson(item));
+        var item = obj.purchaseParams = (PurchaseItemParams)obj.purchaseParams;
+        _mainUIController.Log(JsonUtility.ToJson(obj) + "\n" + JsonUtility.ToJson(item));
     }
 
     private void OnPurchaseItem()
@@ -33,15 +69,9 @@ public class GameManager : MonoBehaviour
         });
     }
 
-    private void OnDestroy()
-    {
-        ui.OnUserInfoAsked -= OnUserInfoAsked;
-        ui.OnPurchaseItem -= OnPurchaseItem;
-    }
-
     private void OnUserInfoAsked()
     {
         var user = sdk.GetUserProfile();
-        ui.Log(JsonUtility.ToJson(user));
+        _mainUIController.Log(JsonUtility.ToJson(user));
     }
 }

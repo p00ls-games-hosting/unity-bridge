@@ -20,12 +20,21 @@ namespace P00LS.Games
         public static extern string p00ls_GetUserProfile();
 
         [DllImport("__Internal")]
-        public static extern string p00ls_HapticFeedback(string type, string style);
+        public static extern void p00ls_HapticFeedback(string type, string style);
 
         [DllImport("__Internal")]
-        public static extern string p00ls_InitPurchase(string purchaseParams);
+        public static extern void p00ls_InitPurchase(string purchaseParams);
 
         [DllImport("__Internal")]
-        public static extern string p00ls_ShowAd(string objectName, string callback);
+        public static extern void p00ls_ShowAd(string objectName, string callback);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_GetReferralLink(string objectName, string callback);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_GetReferrer(string objectName, string callback);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_GetReferees(string parameters, string objectName, string callback);
     }
 }
