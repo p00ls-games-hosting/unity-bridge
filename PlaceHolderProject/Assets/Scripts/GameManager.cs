@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using P00LS.Games;
 using UnityEngine;
@@ -8,7 +9,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private P00LSGamesSdk sdk;
     private MainUIController _mainUIController;
     private AuthController _auth;
+    private PurchaseUIController _purchaseUI;
     private ReferralUIController _referralUI;
+    private UserDataUIController _userDataUI;
 
 
     private void Awake()
@@ -16,13 +19,18 @@ public class GameManager : MonoBehaviour
         _mainUIController = FindFirstObjectByType<MainUIController>();
         _auth = FindFirstObjectByType<AuthController>();
         _referralUI = FindFirstObjectByType<ReferralUIController>();
+        _purchaseUI = FindFirstObjectByType<PurchaseUIController>();
+        _userDataUI = FindFirstObjectByType<UserDataUIController>();
 
         _auth.OnUserInfoAsked += OnUserInfoAsked;
-        _auth.OnPurchaseItem += OnPurchaseItem;
+        _purchaseUI.OnPurchaseItem += OnPurchaseItem;
 
         _referralUI.OnGetReferrer += OnGetReferrer;
         _referralUI.OnGetReferralLink += OnGetReferralLink;
         _referralUI.OnGetReferees += OnGetReferees;
+
+        _userDataUI.OnLoadUserData += LoadUserData;
+        _userDataUI.OnSaveUserData += SaveUserData;
 
         sdk.OnPurchase += OnPurchaseDone;
     }
@@ -73,5 +81,15 @@ public class GameManager : MonoBehaviour
     {
         var user = sdk.GetUserProfile();
         _mainUIController.Log(JsonUtility.ToJson(user));
+    }
+
+    private void LoadUserData()
+    {
+        sdk.GetUserData<UserData>(data => _mainUIController.Log(JsonUtility.ToJson(data, true)));
+    }
+
+    private void SaveUserData(UserData userData)
+    {
+        sdk.SaveUserData(userData);
     }
 }

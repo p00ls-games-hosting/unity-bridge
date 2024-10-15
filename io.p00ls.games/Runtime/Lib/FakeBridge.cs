@@ -1,23 +1,47 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace P00LS.Games
 {
     internal class FakeBridge : IInternalBridge
     {
-        private object _userData;
 
         public event Action<PurchaseResult> OnPurchase;
 
         public void SaveUserData(object data)
         {
-            _userData = data;
+            try
+            {
+                var userDataPath = GetUserDataPath();
+                Debug.Log($"Saving user data to {userDataPath}");
+                File.WriteAllText(userDataPath, JsonUtility.ToJson(data));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
 
         public void GetUserData<T>(Action<T> callback)
         {
-            callback.Invoke((T)_userData);
+            try
+            {
+                var raw = File.ReadAllText(GetUserDataPath());
+                callback.Invoke(JsonHelper.FromJson<T>(raw));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                callback.Invoke(default);
+            } 
+        }
+
+        private static string GetUserDataPath()
+        {
+            var path = Path.Combine(Application.persistentDataPath, "UserData.json");
+            return path;
         }
 
         public void GetIdToken(Action<string> callback)

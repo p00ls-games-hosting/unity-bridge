@@ -162,8 +162,8 @@ namespace P00LS.Games
             {
                 total = raw.total,
                 next = raw.next,
-                page = raw.page.ConvertAll(r => new Referee {firstName = r.firstName, createdAt = DateTime.Parse(r.createdAt)})
-                    
+                page = raw.page.ConvertAll(r => new Referee
+                    { firstName = r.firstName, createdAt = DateTime.Parse(r.createdAt) })
             });
             _getRefereesHandler = null;
         }
@@ -187,7 +187,7 @@ namespace P00LS.Games
 
         private static T FromJson<T>(string value)
         {
-            return value == "null" ? default : JsonUtility.FromJson<T>(value);
+            return JsonHelper.FromJson<T>(value);
         }
     }
 
@@ -212,7 +212,7 @@ namespace P00LS.Games
         public int quantity;
         public int price;
     }
-    
+
     [Serializable]
     internal class RawReferee
     {
