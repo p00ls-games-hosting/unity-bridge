@@ -62,7 +62,7 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                     unityInstance.SendMessage(objectName, fallback, JSON.stringify(error));
                 });
             },
-            'readPartData': ({docKey, objectName, callback, fallback}) => {
+            'readpartdata': ({docKey, objectName, callback, fallback}) => {
                 sdk.data.readPartData(docKey).then(function (data) {
                     unityInstance.SendMessage(objectName, callback, data ? JSON.stringify(data) : 'null');
                 }).catch(function (error) {
@@ -72,7 +72,7 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
             'saveuserdata': ({payload}) => {
                 sdk.data.saveUserData(payload);
             },
-            'savePartData': ({docKey, payload}) => {
+            'savepartdata': ({docKey, payload}) => {
                 sdk.data.savePartData(docKey, payload);
             },
             'getidtoken': ({objectName, callback}) => {
