@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
 
         _userDataUI.OnLoadUserData += LoadUserData;
         _userDataUI.OnSaveUserData += SaveUserData;
+        
+        _userDataUI.OnLoadPartData += LoadPartData;
+        _userDataUI.OnSavePartData += SavePartData;
 
         sdk.OnPurchase += OnPurchaseDone;
     }
@@ -91,5 +94,15 @@ public class GameManager : MonoBehaviour
     private void SaveUserData(UserData userData)
     {
         sdk.SaveUserData(userData);
+    }
+    
+    private void LoadPartData(string docKey)
+    {
+        sdk.ReadPartData<UserData>(docKey, data => _mainUIController.Log(JsonUtility.ToJson(data, true)));
+    }
+
+    private void SavePartData(string docKey, UserData userData)
+    {
+        sdk.SavePartData(docKey, userData);
     }
 }
