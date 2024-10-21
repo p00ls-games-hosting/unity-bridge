@@ -7,8 +7,12 @@ namespace P00LS.Games
         public event Action<PurchaseResult> OnPurchase;
 
         public void SaveUserData(object data);
+        
+        public void SavePartData(string docKey, object data);
 
         public void GetUserData<T>(Action<T> callback);
+        
+        public void ReadPartData<T>(string docKey, Action<T> callback);
 
         public void GetIdToken(Action<string> callback);
 

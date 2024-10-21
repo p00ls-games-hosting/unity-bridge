@@ -6,9 +6,15 @@ namespace P00LS.Games
     {
         [DllImport("__Internal")]
         public static extern void p00ls_SaveUserData(string data);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_SavePartData(string docKey, string data);
 
         [DllImport("__Internal")]
         public static extern void p00ls_GetUserData(string objectName, string callback, string fallback);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_ReadPartData(string docKey, string objectName, string callback, string fallback);
 
         [DllImport("__Internal")]
         public static extern void p00ls_GetIdToken(string objectName, string callback);

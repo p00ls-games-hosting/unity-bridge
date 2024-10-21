@@ -2,7 +2,7 @@
 
 This repository contains a unity package that will expose p00ls games services to Unity, as long as :
 
-* configuring the required WebGL template
+* configuring the required WebGL template
 * manage p00ls games sdk settings (api keys, etc) 
 
 ## How to install

@@ -23,6 +23,20 @@ namespace P00LS.Games
                 Debug.LogException(e);
             }
         }
+        
+        public void SavePartData(string docKey, object data)
+        {
+            try
+            {
+                var partDataPath = GetPartDataPath(docKey);
+                Debug.Log($"Saving part data to {partDataPath}");
+                File.WriteAllText(partDataPath, JsonUtility.ToJson(data));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
 
         public void GetUserData<T>(Action<T> callback)
         {
@@ -37,10 +51,30 @@ namespace P00LS.Games
                 callback.Invoke(default);
             } 
         }
+        
+        public void ReadPartData<T>(string docKey, Action<T> callback)
+        {
+            try
+            {
+                var raw = File.ReadAllText(GetPartDataPath(docKey));
+                callback.Invoke(JsonHelper.FromJson<T>(raw));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                callback.Invoke(default);
+            } 
+        }
 
         private static string GetUserDataPath()
         {
             var path = Path.Combine(Application.persistentDataPath, "UserData.json");
+            return path;
+        }
+        
+        private static string GetPartDataPath(string docKey)
+        {
+            var path = Path.Combine(Application.persistentDataPath, docKey + ".json");
             return path;
         }
 

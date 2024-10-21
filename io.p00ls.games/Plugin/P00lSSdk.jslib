@@ -2,6 +2,9 @@ mergeInto(LibraryManager.library, {
     p00ls_SaveUserData: function (data) {
         dispatchUnityEvent('saveuserdata', {payload: JSON.parse(UTF8ToString(data))})
     },
+    p00ls_SavePartData: function (docKey, data) {
+            dispatchUnityEvent('savepartdata', {docKey: UTF8ToString(docKey), payload: JSON.parse(UTF8ToString(data))})
+        },
     p00ls_GetUserData: function (objectName, callback, fallback) {
         dispatchUnityEvent('getuserdata', {
             objectName: UTF8ToString(objectName),
@@ -9,6 +12,14 @@ mergeInto(LibraryManager.library, {
             fallback: UTF8ToString(fallback)
         });
     },
+    p00ls_ReadPartData: function (docKey, objectName, callback, fallback) {
+            dispatchUnityEvent('readpartdata', {
+                docKey: UTF8ToString(docKey),
+                objectName: UTF8ToString(objectName),
+                callback: UTF8ToString(callback),
+                fallback: UTF8ToString(fallback)
+            });
+        },
     p00ls_GetIdToken: function (objectName, callback) {
         dispatchUnityEvent('getidtoken', {objectName: UTF8ToString(objectName), callback: UTF8ToString(callback)});
     },

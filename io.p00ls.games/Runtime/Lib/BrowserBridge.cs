@@ -27,11 +27,23 @@ namespace P00LS.Games
             var payload = JsonUtility.ToJson(data);
             JsFunctions.p00ls_SaveUserData(payload);
         }
+        
+        public void SavePartData(string docKey, object data)
+        {
+            var payload = JsonUtility.ToJson(data);
+            JsFunctions.p00ls_SavePartData(docKey, payload);
+        }
 
         public void GetUserData<T>(Action<T> callback)
         {
             _getUserDataHandler = value => { callback.Invoke(FromJson<T>(value)); };
             JsFunctions.p00ls_GetUserData(_objectName, "GetUserDataCallback", "GetUserDataFallback");
+        }
+        
+        public void ReadPartData<T>(string docKey, Action<T> callback)
+        {
+            _getUserDataHandler = value => { callback.Invoke(FromJson<T>(value)); };
+            JsFunctions.p00ls_ReadPartData(docKey, _objectName, "GetUserDataCallback", "GetUserDataFallback");
         }
 
         public void GetIdToken(Action<string> callback)

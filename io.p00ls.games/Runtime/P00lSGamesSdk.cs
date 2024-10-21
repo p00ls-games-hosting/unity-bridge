@@ -49,9 +49,19 @@ namespace P00LS.Games
             _bridge.SaveUserData(data);
         }
 
+        public void SavePartData(string docKey, object data)
+        {
+            _bridge.SavePartData(docKey, data); 
+        }
+
         public void GetUserData<T>(Action<T> callback)
         {
             _bridge.GetUserData(callback);
+        }
+
+        public void ReadPartData<T>(string docKey, Action<T> callback)
+        {
+            _bridge.ReadPartData(docKey, callback);
         }
 
         public void GetIdToken(Action<string> callback)
