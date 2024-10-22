@@ -1,4 +1,4 @@
-import {p00lsConfiguration, unityConfiguration, loaderUrl, sdkVersion} from './config.js';
+import {unityConfiguration, loaderUrl, sdkVersion} from './config.js';
 
 const bufferedEvents = [];
 
@@ -6,7 +6,7 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
 
 (async () => {
     const {p00lsGamesSdk} = await import(`https://assets.prod.p00ls.io/p00ls-games/p00lssdk/${sdkVersion}.js`);
-    const sdk = await p00lsGamesSdk(p00lsConfiguration);
+    const sdk = await p00lsGamesSdk();
     console.log('P00ls SDK loaded');
     loadUnity();
 

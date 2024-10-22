@@ -51,7 +51,6 @@ PlayerSettings:
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
-  m_SpriteBatchMaxVertexCount: 65535
   m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
   mipStripping: 0
@@ -85,6 +84,7 @@ PlayerSettings:
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 0
+  captureSingleScreen: 0
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
@@ -301,12 +301,12 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags:
-    P00LS_API_KEY: AIzaSyBnsuip4cFcAz3OKYR_jVOz-vBVdn65PP8
-    P00LS_APP_ID: 1:710487297939:web:6c9381459457c5cb232266
+    P00LS_API_KEY: 
+    P00LS_APP_ID: 
     P00LS_BLOCK_ID: 
-    P00LS_ENV: devel
-    P00LS_GAME_ID: hello-dino
-    P00LS_SDK_VERSION: v2.5
+    P00LS_ENV: 
+    P00LS_GAME_ID: 
+    P00LS_SDK_VERSION: v3.0
   mobileMTRendering:
     Android: 1
     iPhone: 1
@@ -319,7 +319,6 @@ PlayerSettings:
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
-  editorGfxJobOverride: 1
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
   enableCrashReportAPI: 0

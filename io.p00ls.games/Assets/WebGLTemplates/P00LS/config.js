@@ -1,14 +1,3 @@
-export const p00lsConfiguration = {
-    apiKey: "{{{ P00LS_API_KEY }}}",
-    appId: "{{{ P00LS_APP_ID }}}",
-    env: "{{{ P00LS_ENV }}}",
-    gameId: "{{{ P00LS_GAME_ID }}}",
-    gameVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
-    #if P00LS_BLOCK_ID
-    blockId: "{{{ P00LS_BLOCK_ID }}}",
-    #endif
-};
-
 export const sdkVersion = "{{{ P00LS_SDK_VERSION }}}";
 
 const buildUrl = "Build";
