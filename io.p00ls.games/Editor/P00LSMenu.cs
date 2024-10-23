@@ -44,11 +44,6 @@ namespace P00LS.Games.Editor
         private static void ResetToDefault()
         {
             PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v3.0");
-            PlayerSettings.SetTemplateCustomValue("P00LS_API_KEY", null);
-            PlayerSettings.SetTemplateCustomValue("P00LS_APP_ID", null);
-            PlayerSettings.SetTemplateCustomValue("P00LS_BLOCK_ID", null);
-            PlayerSettings.SetTemplateCustomValue("P00LS_ENV", null);
-            PlayerSettings.SetTemplateCustomValue("P00LS_GAME_ID", null);
         }
 
         private static void CopyWebGLTemplate()

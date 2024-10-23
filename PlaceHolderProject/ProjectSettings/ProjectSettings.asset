@@ -301,11 +301,6 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags:
-    P00LS_API_KEY: 
-    P00LS_APP_ID: 
-    P00LS_BLOCK_ID: 
-    P00LS_ENV: 
-    P00LS_GAME_ID: 
     P00LS_SDK_VERSION: v3.0
   mobileMTRendering:
     Android: 1
