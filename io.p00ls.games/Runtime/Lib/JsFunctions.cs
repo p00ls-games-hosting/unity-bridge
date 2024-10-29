@@ -32,7 +32,7 @@ namespace P00LS.Games
         public static extern void p00ls_InitPurchase(string purchaseParams);
 
         [DllImport("__Internal")]
-        public static extern void p00ls_ShowAd(string objectName, string callback);
+        public static extern void p00ls_ShowAd(string adType, string objectName, string callback);
         
         [DllImport("__Internal")]
         public static extern void p00ls_GetReferralLink(string objectName, string callback);

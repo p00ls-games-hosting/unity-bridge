@@ -109,6 +109,11 @@ namespace P00LS.Games
             _bridge.ShowAd(callback);
         }
 
+        public void ShowAd(AdType type, Action<bool> callback)
+        {
+            _bridge.ShowAd(type, callback);
+        }
+
         public void GetReferralLink(Action<string> callback)
         {
             _bridge.GetReferralLink(callback);

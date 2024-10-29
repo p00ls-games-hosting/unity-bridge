@@ -92,8 +92,8 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
             'initpurchase': ({params}) => {
                 sdk.purchase.initPurchase(params);
             },
-            'showad': ({objectName, callback}) => {
-                sdk.ads.show().then(function (data) {
+            'showad': ({objectName, callback, adType}) => {
+                sdk.ads.show(adType).then(function (data) {
                     unityInstance.SendMessage(objectName, callback, data ? 1 : 0);
                 });
             },

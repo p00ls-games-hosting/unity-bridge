@@ -125,7 +125,12 @@ namespace P00LS.Games
 
         public void ShowAd(Action<bool> callback)
         {
-            Debug.Log("Showing ad");
+            ShowAd(AdType.Rewarded, callback);
+        }
+
+        public void ShowAd(AdType type, Action<bool> callback)
+        {
+            Debug.Log($"Showing ad {type}");
             callback.Invoke(true);
         }
 

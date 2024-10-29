@@ -3,8 +3,8 @@ mergeInto(LibraryManager.library, {
         dispatchUnityEvent('saveuserdata', {payload: JSON.parse(UTF8ToString(data))})
     },
     p00ls_SavePartData: function (docKey, data) {
-            dispatchUnityEvent('savepartdata', {docKey: UTF8ToString(docKey), payload: JSON.parse(UTF8ToString(data))})
-        },
+        dispatchUnityEvent('savepartdata', {docKey: UTF8ToString(docKey), payload: JSON.parse(UTF8ToString(data))})
+    },
     p00ls_GetUserData: function (objectName, callback, fallback) {
         dispatchUnityEvent('getuserdata', {
             objectName: UTF8ToString(objectName),
@@ -13,13 +13,13 @@ mergeInto(LibraryManager.library, {
         });
     },
     p00ls_ReadPartData: function (docKey, objectName, callback, fallback) {
-            dispatchUnityEvent('readpartdata', {
-                docKey: UTF8ToString(docKey),
-                objectName: UTF8ToString(objectName),
-                callback: UTF8ToString(callback),
-                fallback: UTF8ToString(fallback)
-            });
-        },
+        dispatchUnityEvent('readpartdata', {
+            docKey: UTF8ToString(docKey),
+            objectName: UTF8ToString(objectName),
+            callback: UTF8ToString(callback),
+            fallback: UTF8ToString(fallback)
+        });
+    },
     p00ls_GetIdToken: function (objectName, callback) {
         dispatchUnityEvent('getidtoken', {objectName: UTF8ToString(objectName), callback: UTF8ToString(callback)});
     },
@@ -43,8 +43,12 @@ mergeInto(LibraryManager.library, {
         const parsedPurchaseParams = JSON.parse(text);
         dispatchUnityEvent('initpurchase', {params: parsedPurchaseParams});
     },
-    p00ls_ShowAd: function (objectName, callback) {
-        dispatchUnityEvent('showad', {objectName: UTF8ToString(objectName), callback: UTF8ToString(callback)});
+    p00ls_ShowAd: function (adType, objectName, callback) {
+        dispatchUnityEvent('showad', {
+            adType: UTF8ToString(adType),
+            objectName: UTF8ToString(objectName),
+            callback: UTF8ToString(callback)
+        });
     },
     p00ls_GetReferralLink: function (objectName, callback) {
         dispatchUnityEvent('getreferrallink', {objectName: UTF8ToString(objectName), callback: UTF8ToString(callback)});

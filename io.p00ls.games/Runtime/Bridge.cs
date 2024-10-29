@@ -31,6 +31,8 @@ namespace P00LS.Games
         public void InitPurchase(PurchaseParams purchaseParams);
 
         public void ShowAd(Action<bool> callback);
+        
+        public void ShowAd(AdType type, Action<bool> callback);
 
         public void GetReferralLink(Action<string> callback);
 
@@ -39,6 +41,12 @@ namespace P00LS.Games
         public void GetReferees(GetRefereesRequest request, Action<GetRefereesResult> callback);
     }
 
+    public enum AdType
+    {
+        Interstitial,
+        Rewarded,
+    }
+    
     public enum ImpactFeedBackForce
     {
         Light,

@@ -27,7 +27,7 @@ namespace P00LS.Games
             var payload = JsonUtility.ToJson(data);
             JsFunctions.p00ls_SaveUserData(payload);
         }
-        
+
         public void SavePartData(string docKey, object data)
         {
             var payload = JsonUtility.ToJson(data);
@@ -39,7 +39,7 @@ namespace P00LS.Games
             _getUserDataHandler = value => { callback.Invoke(FromJson<T>(value)); };
             JsFunctions.p00ls_GetUserData(_objectName, "GetUserDataCallback", "GetUserDataFallback");
         }
-        
+
         public void ReadPartData<T>(string docKey, Action<T> callback)
         {
             _getUserDataHandler = value => { callback.Invoke(FromJson<T>(value)); };
@@ -90,8 +90,14 @@ namespace P00LS.Games
 
         public void ShowAd(Action<bool> callback)
         {
+            ShowAd(AdType.Rewarded, callback);
+        }
+
+        public void ShowAd(AdType type, Action<bool> callback)
+        {
             _showAdHandler = callback;
-            JsFunctions.p00ls_ShowAd(_objectName, "ShowAdCallback");
+            JsFunctions.p00ls_ShowAd(type == AdType.Interstitial ? "interstitial" : "rewarded", _objectName,
+                "ShowAdCallback");
         }
 
         public void GetReferralLink(Action<string> callback)
