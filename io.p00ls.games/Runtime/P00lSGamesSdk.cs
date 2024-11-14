@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace P00LS.Games
@@ -51,7 +52,7 @@ namespace P00LS.Games
 
         public void SavePartData(string docKey, object data)
         {
-            _bridge.SavePartData(docKey, data); 
+            _bridge.SavePartData(docKey, data);
         }
 
         public void GetUserData<T>(Action<T> callback)
@@ -124,9 +125,19 @@ namespace P00LS.Games
             _bridge.GetReferrer(callback);
         }
 
-        public void GetReferees(GetRefereesRequest request, Action<GetRefereesResult> callback)
+        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null)
         {
-            _bridge.GetReferees(request, callback);
+            _bridge.GetReferees(callback, pageSize, next);
+        }
+
+        public void GetStatistics(Action<Dictionary<string, Statistic>> callback)
+        {
+            _bridge.GetStatistics(callback);
+        }
+
+        public void UpdateStatistic(StatisticUpdate[] statisticUpdate)
+        {
+            _bridge.UpdateStatistic(statisticUpdate);
         }
 
         private void GetUserDataCallback(string value)
@@ -167,6 +178,11 @@ namespace P00LS.Games
         private void GetRefereesCallback(string payload)
         {
             _bridge.GetRefereesCallback(payload);
+        }
+        
+        private void GetStatisticsCallback(string payload)
+        {
+            _bridge.GetStatisticsCallback(payload);
         }
     }
 }

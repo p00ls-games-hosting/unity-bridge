@@ -62,5 +62,16 @@ mergeInto(LibraryManager.library, {
             objectName: UTF8ToString(objectName),
             callback: UTF8ToString(callback)
         });
+    },
+    p00ls_GetStatistics: function (objectName, callback) {
+        dispatchUnityEvent('getstatistics', {
+            callback: UTF8ToString(callback),
+            objectName: UTF8ToString(objectName),
+        });
+    },
+    p00ls_UpdateStatistics: function (params) {
+        dispatchUnityEvent('updatestatistics', {
+            params: JSON.parse(UTF8ToString(params)),
+        });
     }
 });

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace P00LS.Games
 {
@@ -7,11 +8,11 @@ namespace P00LS.Games
         public event Action<PurchaseResult> OnPurchase;
 
         public void SaveUserData(object data);
-        
+
         public void SavePartData(string docKey, object data);
 
         public void GetUserData<T>(Action<T> callback);
-        
+
         public void ReadPartData<T>(string docKey, Action<T> callback);
 
         public void GetIdToken(Action<string> callback);
@@ -31,14 +32,18 @@ namespace P00LS.Games
         public void InitPurchase(PurchaseParams purchaseParams);
 
         public void ShowAd(Action<bool> callback);
-        
+
         public void ShowAd(AdType type, Action<bool> callback);
 
         public void GetReferralLink(Action<string> callback);
 
         public void GetReferrer(Action<Referrer> callback);
-        
-        public void GetReferees(GetRefereesRequest request, Action<GetRefereesResult> callback);
+
+        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null);
+
+        public void GetStatistics(Action<Dictionary<string, Statistic>> callback);
+
+        public void UpdateStatistic(StatisticUpdate[] statisticUpdate);
     }
 
     public enum AdType
@@ -46,7 +51,7 @@ namespace P00LS.Games
         Interstitial,
         Rewarded,
     }
-    
+
     public enum ImpactFeedBackForce
     {
         Light,

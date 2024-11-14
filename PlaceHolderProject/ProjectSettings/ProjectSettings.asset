@@ -301,7 +301,7 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags:
-    P00LS_SDK_VERSION: v3.2
+    P00LS_SDK_VERSION: v3.3
   mobileMTRendering:
     Android: 1
     iPhone: 1

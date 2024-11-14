@@ -1,6 +1,7 @@
 {
   "name": "P00LS.Games",
   "references": [
+    "Unity.Serialization"
   ],
   "autoReferenced": true,
   "includePlatforms": []

@@ -1,4 +1,4 @@
-using UnityEngine;
+using Unity.Serialization.Json;
 
 namespace P00LS.Games
 {
@@ -6,7 +6,7 @@ namespace P00LS.Games
     {
         internal static T FromJson<T>(string value)
         {
-            return value == "null" ? default : JsonUtility.FromJson<T>(value);
+            return value == "null" ? default : JsonSerialization.FromJson<T>(value);
         }
         
     }

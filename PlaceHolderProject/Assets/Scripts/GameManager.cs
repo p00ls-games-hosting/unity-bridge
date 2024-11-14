@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 using P00LS.Games;
 using UnityEngine;
@@ -12,6 +11,7 @@ public class GameManager : MonoBehaviour
     private PurchaseUIController _purchaseUI;
     private ReferralUIController _referralUI;
     private UserDataUIController _userDataUI;
+    private StatisticsUIController _statisticsUI;
 
 
     private void Awake()
@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         _referralUI = FindFirstObjectByType<ReferralUIController>();
         _purchaseUI = FindFirstObjectByType<PurchaseUIController>();
         _userDataUI = FindFirstObjectByType<UserDataUIController>();
+        _statisticsUI = FindFirstObjectByType<StatisticsUIController>();
 
         _auth.OnUserInfoAsked += OnUserInfoAsked;
         _purchaseUI.OnPurchaseItem += OnPurchaseItem;
@@ -31,16 +32,37 @@ public class GameManager : MonoBehaviour
 
         _userDataUI.OnLoadUserData += LoadUserData;
         _userDataUI.OnSaveUserData += SaveUserData;
-        
+
         _userDataUI.OnLoadPartData += LoadPartData;
         _userDataUI.OnSavePartData += SavePartData;
+
+        _statisticsUI.OnStatisticsAsked += LoadStatistics;
+        _statisticsUI.OnStatisticsUpdateAsked += UpdateStatistics;
 
         sdk.OnPurchase += OnPurchaseDone;
     }
 
+    private void UpdateStatistics(StatisticUpdate[] updates)
+    {
+        sdk.UpdateStatistic(updates);
+    }
+
+    private void LoadStatistics()
+    {
+        sdk.GetStatistics(values =>
+            {
+                _mainUIController.Log("Statistics");
+                foreach (var (statName, stat) in values)
+                {
+                    _mainUIController.AppendLog($"{statName}: {stat.value} // {stat.version}  Reset : {stat.resetIn.HasValue} {stat.resetIn}");
+                }
+            }
+        );
+    }
+
     private void OnGetReferees()
     {
-        sdk.GetReferees(null, referees =>
+        sdk.GetReferees(referees =>
         {
             _mainUIController.Log($"Total: {referees.total}");
             _mainUIController.AppendLog($"Next: {referees.next}");
@@ -95,7 +117,7 @@ public class GameManager : MonoBehaviour
     {
         sdk.SaveUserData(userData);
     }
-    
+
     private void LoadPartData(string docKey)
     {
         sdk.ReadPartData<UserData>(docKey, data => _mainUIController.Log(JsonUtility.ToJson(data, true)));

@@ -77,7 +77,7 @@ public class UserDataUIController: MonoBehaviour
 
     private void SavePart()
     {
-        OnSavePartData?.Invoke("testKey", new UserData()
+        OnSavePartData?.Invoke("testKey", new UserData
         {
             userName = "A User fancy name",
             score = (int)(Random.value * 10),

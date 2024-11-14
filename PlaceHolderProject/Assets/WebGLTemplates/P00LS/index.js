@@ -105,6 +105,18 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
             },
             'getreferees': ({objectName, callback, params}) => {
                 sdk.referral.getReferees(params).then(result => unityInstance.SendMessage(objectName, callback, JSON.stringify(result)));
+            },
+            'updatestatistics': ({params}) => {
+                const converted = params.reduce((acc, v) => {
+                    acc[v.name] = v.value;
+                    return acc;
+                }, {});
+                sdk.statistics.updateValues(converted);
+            },
+            'getstatistics': ({objectName, callback}) => {
+                sdk.statistics.fetchValues().then(values => {
+                    unityInstance.SendMessage(objectName, callback, JSON.stringify(values));
+                })
             }
         }
     }

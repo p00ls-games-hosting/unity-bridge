@@ -42,5 +42,11 @@ namespace P00LS.Games
         
         [DllImport("__Internal")]
         public static extern void p00ls_GetReferees(string parameters, string objectName, string callback);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_GetStatistics(string objectName, string callback);
+
+        [DllImport("__Internal")]
+        public static extern void p00ls_UpdateStatistics(string updateParams);
     }
 }

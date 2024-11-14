@@ -145,7 +145,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.31",
+      "version": "3.0.34",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -234,11 +234,14 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.settings-manager": {
-      "version": "2.0.1",
+    "com.unity.serialization": {
+      "version": "3.1.2",
       "depth": 1,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.collections": "2.4.2",
+        "com.unity.burst": "1.7.2"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
@@ -293,7 +296,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.4",
+      "version": "1.9.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -307,7 +310,7 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
-        "com.unity.settings-manager": "2.0.1"
+        "com.unity.serialization": "3.1.2"
       }
     },
     "com.unity.modules.accessibility": {

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Unity.Serialization.Json;
 using UnityEngine;
 
 namespace P00LS.Games
 {
     internal class FakeBridge : IInternalBridge
     {
-
         public event Action<PurchaseResult> OnPurchase;
 
         public void SaveUserData(object data)
@@ -16,21 +17,21 @@ namespace P00LS.Games
             {
                 var userDataPath = GetUserDataPath();
                 Debug.Log($"Saving user data to {userDataPath}");
-                File.WriteAllText(userDataPath, JsonUtility.ToJson(data));
+                File.WriteAllText(userDataPath, JsonSerialization.ToJson(data));
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
             }
         }
-        
+
         public void SavePartData(string docKey, object data)
         {
             try
             {
                 var partDataPath = GetPartDataPath(docKey);
                 Debug.Log($"Saving part data to {partDataPath}");
-                File.WriteAllText(partDataPath, JsonUtility.ToJson(data));
+                File.WriteAllText(partDataPath, JsonSerialization.ToJson(data));
             }
             catch (Exception e)
             {
@@ -49,9 +50,9 @@ namespace P00LS.Games
             {
                 Debug.LogException(e);
                 callback.Invoke(default);
-            } 
+            }
         }
-        
+
         public void ReadPartData<T>(string docKey, Action<T> callback)
         {
             try
@@ -63,7 +64,7 @@ namespace P00LS.Games
             {
                 Debug.LogException(e);
                 callback.Invoke(default);
-            } 
+            }
         }
 
         private static string GetUserDataPath()
@@ -71,10 +72,16 @@ namespace P00LS.Games
             var path = Path.Combine(Application.persistentDataPath, "UserData.json");
             return path;
         }
-        
+
         private static string GetPartDataPath(string docKey)
         {
             var path = Path.Combine(Application.persistentDataPath, docKey + ".json");
+            return path;
+        }
+
+        private static string GetStatisticsPath()
+        {
+            var path = Path.Combine(Application.persistentDataPath, "statistics.json");
             return path;
         }
 
@@ -145,14 +152,62 @@ namespace P00LS.Games
             callback.Invoke(new Referrer { firstName = "Fake referrer" });
         }
 
-        public void GetReferees(GetRefereesRequest request, Action<GetRefereesResult> callback)
+        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null)
         {
             callback(new GetRefereesResult
             {
                 next = null,
                 total = 0,
-                page = new List<Referee>()
+                page = Array.Empty<Referee>()
             });
+        }
+
+        public void GetStatistics(Action<Dictionary<string, Statistic>> callback)
+        {
+            callback.Invoke(ReadStatistics());
+        }
+
+        private static Dictionary<string, Statistic> ReadStatistics()
+        {
+            try
+            {
+                var raw = File.ReadAllText(GetStatisticsPath());
+                return string.IsNullOrEmpty(raw)
+                    ? new Dictionary<string, Statistic>()
+                    : JsonHelper.FromJson<Dictionary<string, Statistic>>(raw);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return new Dictionary<string, Statistic>();
+            }
+        }
+
+        public void UpdateStatistic(StatisticUpdate[] statisticUpdate)
+        {
+            try
+            {
+                var dictionary = ReadStatistics();
+                foreach (var update in statisticUpdate)
+                {
+                    var def = new Statistic
+                    {
+                        version = 1,
+                        resetIn = null
+                    };
+                    var elem = dictionary.GetValueOrDefault(update.name, def);
+                    elem.value = update.value;
+                    dictionary[update.name] = elem;
+                }
+
+                var userDataPath = GetStatisticsPath();
+                Debug.Log($"Saving statistics to {userDataPath}");
+                File.WriteAllText(userDataPath, JsonSerialization.ToJson(dictionary));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
 
         public void GetUserDataCallback(string value)
@@ -190,6 +245,11 @@ namespace P00LS.Games
         public void GetRefereesCallback(string value)
         {
             Debug.Log($"GetRefereesCallback: {value}");
+        }
+
+        public void GetStatisticsCallback(string value)
+        {
+            Debug.Log($"GetStatisticsCallback: {value}");
         }
     }
 }

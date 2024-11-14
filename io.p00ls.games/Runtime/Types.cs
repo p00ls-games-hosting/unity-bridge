@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace P00LS.Games
 {
@@ -25,8 +24,7 @@ namespace P00LS.Games
         public string name;
     }
 
-    [Serializable]
-    public class PurchaseResult
+    public struct PurchaseResult
     {
         public string paymentId;
         public PurchaseParams purchaseParams;
@@ -34,7 +32,7 @@ namespace P00LS.Games
     }
 
     [Serializable]
-    public class UserProfile
+    public struct UserProfile
     {
         public string userId;
         public string firstName;
@@ -45,30 +43,37 @@ namespace P00LS.Games
     }
 
     [Serializable]
-    public class Referrer
+    public struct Referrer
     {
         public string firstName;
     }
 
     [Serializable]
-    public class Referee
+    public struct Referee
     {
         public string firstName;
         public DateTime createdAt;
     }
 
-    [Serializable]
-    public class GetRefereesResult
+    public struct GetRefereesResult
     {
-        public List<Referee> page;
+        public Referee[] page;
         public int total;
         public string next;
     }
 
     [Serializable]
-    public class GetRefereesRequest
+    public struct Statistic
     {
-        public string next;
-        public int pageSize;
+        public long value;
+        public int version;
+        public long? resetIn;
+    }
+
+    [Serializable]
+    public struct StatisticUpdate
+    {
+        public string name;
+        public long value;
     }
 }

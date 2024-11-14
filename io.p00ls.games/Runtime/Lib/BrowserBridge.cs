@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Unity.Serialization.Json;
 using UnityEngine;
+using Object = System.Object;
 
 namespace P00LS.Games
 {
@@ -14,6 +15,7 @@ namespace P00LS.Games
         private Action<string> _getReferralLinkHandler;
         private Action<Referrer> _getReferrerHandler;
         private Action<GetRefereesResult> _getRefereesHandler;
+        private Action<Dictionary<string, Statistic>> _getStatisticsCallback;
 
         public BrowserBridge(string objectName)
         {
@@ -24,13 +26,13 @@ namespace P00LS.Games
 
         public void SaveUserData(object data)
         {
-            var payload = JsonUtility.ToJson(data);
+            var payload = JsonSerialization.ToJson(data);
             JsFunctions.p00ls_SaveUserData(payload);
         }
 
         public void SavePartData(string docKey, object data)
         {
-            var payload = JsonUtility.ToJson(data);
+            var payload = JsonSerialization.ToJson(data);
             JsFunctions.p00ls_SavePartData(docKey, payload);
         }
 
@@ -54,7 +56,7 @@ namespace P00LS.Games
 
         public void LogEvent(string eventName, object eventParams)
         {
-            var payload = JsonUtility.ToJson(eventParams);
+            var payload = JsonSerialization.ToJson(eventParams);
             JsFunctions.p00ls_LogEvent(eventName, payload);
         }
 
@@ -65,7 +67,8 @@ namespace P00LS.Games
 
         public UserProfile GetUserProfile()
         {
-            return JsonUtility.FromJson<UserProfile>(JsFunctions.p00ls_GetUserProfile());
+            var p00LsGetUserProfile = JsFunctions.p00ls_GetUserProfile();
+            return JsonSerialization.FromJson<UserProfile>(p00LsGetUserProfile);
         }
 
         public void ImpactHapticFeedback(ImpactFeedBackForce force)
@@ -85,7 +88,10 @@ namespace P00LS.Games
 
         public void InitPurchase(PurchaseParams purchaseParams)
         {
-            JsFunctions.p00ls_InitPurchase(JsonUtility.ToJson(purchaseParams));
+            JsFunctions.p00ls_InitPurchase(JsonSerialization.ToJson(purchaseParams, new JsonSerializationParameters()
+            {
+                SerializedType = typeof(RawPurchaseParams)
+            }));
         }
 
         public void ShowAd(Action<bool> callback)
@@ -112,16 +118,32 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetReferrer(_objectName, "GetReferrerCallback");
         }
 
-        public void GetReferees(GetRefereesRequest request, Action<GetRefereesResult> callback)
+        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null)
         {
             _getRefereesHandler = callback;
-            var p = request != null ? JsonUtility.ToJson(request) : "{}";
-            JsFunctions.p00ls_GetReferees(p, _objectName, "GetRefereesCallback");
+            var pa = new Dictionary<string, Object> { { "pageSize", pageSize } };
+            if (next != null)
+            {
+                pa.Add("next", next);
+            }
+
+            JsFunctions.p00ls_GetReferees(JsonSerialization.ToJson(pa), _objectName, "GetRefereesCallback");
+        }
+
+        public void GetStatistics(Action<Dictionary<string, Statistic>> callback)
+        {
+            _getStatisticsCallback = callback;
+            JsFunctions.p00ls_GetStatistics(_objectName, "GetStatisticsCallback");
+        }
+
+        public void UpdateStatistic(StatisticUpdate[] statisticUpdate)
+        {
+            JsFunctions.p00ls_UpdateStatistics(JsonSerialization.ToJson(statisticUpdate));
         }
 
         public void OnPurchaseCallback(string value)
         {
-            var rawPurchaseResult = FromJson<RawPurchaseResult>(value);
+            var rawPurchaseResult = JsonSerialization.FromJson<RawPurchaseResult>(value);
             if (rawPurchaseResult.purchaseParams.itemId != null)
             {
                 OnPurchase?.Invoke(new PurchaseResult
@@ -175,15 +197,21 @@ namespace P00LS.Games
 
         public void GetRefereesCallback(string value)
         {
-            var raw = FromJson<RawGetRefereesResult>(value);
+            var rawGetRefereesResult = JsonSerialization.FromJson<RawGetRefereesResult>(value);
             _getRefereesHandler?.Invoke(new GetRefereesResult
             {
-                total = raw.total,
-                next = raw.next,
-                page = raw.page.ConvertAll(r => new Referee
+                total = rawGetRefereesResult.total,
+                next = rawGetRefereesResult.next,
+                page = Array.ConvertAll(rawGetRefereesResult.page, r => new Referee
                     { firstName = r.firstName, createdAt = DateTime.Parse(r.createdAt) })
             });
             _getRefereesHandler = null;
+        }
+
+        public void GetStatisticsCallback(string value)
+        {
+            _getStatisticsCallback?.Invoke(JsonSerialization.FromJson<Dictionary<string, Statistic>>(value));
+            _getStatisticsCallback = null;
         }
 
         public void GetUserDataCallback(string value)
@@ -241,8 +269,15 @@ namespace P00LS.Games
     [Serializable]
     internal class RawGetRefereesResult
     {
-        public List<RawReferee> page;
+        public RawReferee[] page;
         public int total;
         public string next;
+    }
+
+    [Serializable]
+    internal struct GetRefereesRequest
+    {
+        public string next;
+        public int pageSize;
     }
 }
