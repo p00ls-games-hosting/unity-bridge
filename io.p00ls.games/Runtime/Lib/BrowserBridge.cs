@@ -17,6 +17,7 @@ namespace P00LS.Games
         private Action<GetRefereesResult> _getRefereesHandler;
         private Action<Dictionary<string, Statistic>> _getStatisticsCallback;
         private Action<UserLeaderboardPosition?> _getUserPositionCallback;
+        private Action<Leaderboard> _getLeaderboardCallback;
 
         public BrowserBridge(string objectName)
         {
@@ -148,6 +149,18 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetUserPosition(statisticName, _objectName, "GetUserPositionCallback");
         }
 
+        public void GetLeaderboard(string statisticName, Action<Leaderboard> callback, int pageSize = 50, string next = null)
+        {
+            _getLeaderboardCallback = callback;
+            var pa = new Dictionary<string, Object> { { "limit", pageSize }, {"statistic", statisticName } };
+            if (next != null)
+            {
+                pa.Add("next", next);
+            }
+
+            JsFunctions.p00ls_GetLeaderboard(JsonSerialization.ToJson(pa), _objectName, "GetLeaderboardCallback");
+        }
+
         public void OnPurchaseCallback(string value)
         {
             var rawPurchaseResult = JsonSerialization.FromJson<RawPurchaseResult>(value);
@@ -226,6 +239,13 @@ namespace P00LS.Games
             var result = JsonHelper.FromJson<UserLeaderboardPosition>(value);
             _getUserPositionCallback?.Invoke(result);
             _getUserPositionCallback = null;
+        }
+
+        public void GetLeaderboardCallback(string value)
+        {
+            var result = JsonHelper.FromJson<Leaderboard>(value);
+            _getLeaderboardCallback?.Invoke(result);
+            _getLeaderboardCallback = null;
         }
 
         public void GetUserDataCallback(string value)

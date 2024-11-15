@@ -21,6 +21,8 @@ namespace P00LS.Games
         void GetStatisticsCallback(string value);
         
         void GetUserPositionCallback(string value);
+        
+        void GetLeaderboardCallback(string value);
     }
 
     internal interface IInternalBridge : IBridge, IReceiver

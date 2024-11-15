@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 
 namespace P00LS.Games
 {
@@ -83,5 +84,21 @@ namespace P00LS.Games
         public long value;
         public int version;
         public long? resetIn;
+    }
+
+    public struct LeaderboardEntry
+    {
+        public long userId;
+        public int position;
+        public long value;
+        public string displayName;
+    }
+
+    public struct Leaderboard
+    {
+        public LeaderboardEntry[] entries;
+        public int version;
+        public long? resetIn;
+        [CanBeNull] public string next;
     }
 }

@@ -145,6 +145,11 @@ namespace P00LS.Games
             _bridge.GetUserPosition(statisticName, callback);
         }
 
+        public void GetLeaderboard(string statisticName, Action<Leaderboard> callback, int pageSize = 50, string next = null)
+        {
+            _bridge.GetLeaderboard(statisticName, callback, pageSize, next);
+        }
+
         private void GetUserDataCallback(string value)
         {
             _bridge.GetUserDataCallback(value);
@@ -193,6 +198,11 @@ namespace P00LS.Games
         private void GetUserPositionCallback(string payload)
         {
             _bridge.GetUserPositionCallback(payload);
+        }
+
+        private void GetLeaderboardCallback(string payload)
+        {
+            _bridge.GetLeaderboardCallback(payload);
         }
     }
 }

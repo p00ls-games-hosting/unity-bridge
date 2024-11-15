@@ -12,11 +12,17 @@ public class LeaderboardUIController : MonoBehaviour
 {
     private TextField _statisticName;
     private Button _getPosition;
-    private readonly LeaderboardDataSource _source = new LeaderboardDataSource();
+    private Button _getLeaderboard;
+    private Button _getLeaderboardAround;
+    private readonly LeaderboardDataSource _source = new();
 
     public delegate void PositionAsked(string statistic);
+    
+    public delegate void GetLeaderboard(string statistic);  
 
     public event PositionAsked OnPositionAsked;
+    
+    public event GetLeaderboard OnGlobalLeaderboardAsked;
 
     private void OnEnable()
     {
@@ -29,8 +35,19 @@ public class LeaderboardUIController : MonoBehaviour
             bindingMode = BindingMode.TwoWay,
             updateTrigger = BindingUpdateTrigger.EveryUpdate
         });
+        
         _getPosition = tab.Q<Button>("Position");
         _getPosition.clicked += AskPosition;
+        
+        _getLeaderboard = tab.Q<Button>("GlobalLeaderboard");
+        _getLeaderboard.clicked += AskGlobalLeaderboard;
+        
+        _getLeaderboardAround = tab.Q<Button>("LeaderboardAround");
+    }
+
+    private void AskGlobalLeaderboard()
+    {
+        OnGlobalLeaderboardAsked?.Invoke(_source.StatisticName);
     }
 
     private void AskPosition()

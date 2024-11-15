@@ -1,4 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <engine:TextField label="Statistic Name" placeholder-text="Input name" name="Statistic" />
     <engine:Button text="Get position" name="Position" />
+    <engine:Button text="Global Leaderboard" name="GlobalLeaderboard" />
+    <engine:Button text="Leaderboard around" name="LeaderboardAround" />
 </engine:UXML>

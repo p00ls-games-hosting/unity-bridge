@@ -229,6 +229,34 @@ namespace P00LS.Games
             }
         }
 
+        public void GetLeaderboard(string statisticName, Action<Leaderboard> callback, int pageSize = 50,
+            string next = null)
+        {
+            var stats = ReadStatistics();
+            if (stats.ContainsKey(statisticName))
+            {
+                var statValue = stats[statisticName];
+                callback.Invoke(new Leaderboard
+                {
+                    entries = new[]
+                    {
+                        new LeaderboardEntry
+                            { value = statValue.value, position = 1, displayName = "Fake User", userId = 1 }
+                    },
+                    version = statValue.version,
+                    resetIn = statValue.resetIn,
+                });
+            }
+            else
+            {
+                callback.Invoke(new Leaderboard()
+                {
+                    entries = Array.Empty<LeaderboardEntry>(),
+                    version = 1
+                });
+            }
+        }
+
         public void GetUserDataCallback(string value)
         {
         }
@@ -274,6 +302,11 @@ namespace P00LS.Games
         public void GetUserPositionCallback(string value)
         {
             Debug.Log($"GetUserPositionCallback: {value}");
+        }
+
+        public void GetLeaderboardCallback(string value)
+        {
+            Debug.Log($"GetLeaderboardCallback: {value}");
         }
     }
 }

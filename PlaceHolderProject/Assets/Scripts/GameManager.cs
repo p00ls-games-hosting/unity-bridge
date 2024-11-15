@@ -42,8 +42,25 @@ public class GameManager : MonoBehaviour
         _statisticsUI.OnStatisticsUpdateAsked += UpdateStatistics;
 
         _leaderboardUI.OnPositionAsked += GetUserPosition;
+        _leaderboardUI.OnGlobalLeaderboardAsked += GetGlobalLeaderboard;
 
         sdk.OnPurchase += OnPurchaseDone;
+    }
+
+    private void GetGlobalLeaderboard(string statistic)
+    {
+        sdk.GetLeaderboard(statistic, leaderboard =>
+        {
+            _mainUIController.Log("Global leaderboard");
+            _mainUIController.AppendLog($"Version: {leaderboard.version}");
+            _mainUIController.AppendLog($"Reset: {leaderboard.resetIn.HasValue}:{leaderboard.resetIn}");
+            _mainUIController.AppendLog($"Next: {leaderboard.next != null}{leaderboard.next}");
+            foreach (var leaderboardEntry in leaderboard.entries)
+            {
+                _mainUIController.AppendLog($"Entry: {leaderboardEntry.displayName}:{leaderboardEntry.position}");
+                
+            }
+        });
     }
 
     private void GetUserPosition(string statistic)
@@ -67,7 +84,8 @@ public class GameManager : MonoBehaviour
                 _mainUIController.Log("Statistics");
                 foreach (var (statName, stat) in values)
                 {
-                    _mainUIController.AppendLog($"{statName}: {stat.value} // {stat.version}  Reset : {stat.resetIn.HasValue} {stat.resetIn}");
+                    _mainUIController.AppendLog(
+                        $"{statName}: {stat.value} // {stat.version}  Reset : {stat.resetIn.HasValue} {stat.resetIn}");
                 }
             }
         );
