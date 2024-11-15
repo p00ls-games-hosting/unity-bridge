@@ -19,10 +19,10 @@ public class StatisticsUIController : MonoBehaviour
     {
         var uiDocument = GetComponent<UIDocument>();
 
-        _saveButton = uiDocument.rootVisualElement.Q<Button>("Save");
+        _saveButton = uiDocument.rootVisualElement.Q<Button>("SaveStatistics");
         _saveButton.clicked += UpdateStatistics;
 
-        _loadButton = uiDocument.rootVisualElement.Q<Button>("Load");
+        _loadButton = uiDocument.rootVisualElement.Q<Button>("LoadStatistics");
         _loadButton.clicked += GetStatistics;
     }
 

@@ -4,6 +4,7 @@
     <engine:Template name="PurchaseUI" src="project://database/Assets/Editor/PurchaseUI.uxml?fileID=9197481963319205126&amp;guid=2e9a275a2f2e64902b67f4073ded99af&amp;type=3#PurchaseUI" />
     <engine:Template name="UserDataUI" src="project://database/Assets/Editor/UserDataUI.uxml?fileID=9197481963319205126&amp;guid=fccdada1949274afab0df01ea062afc7&amp;type=3#UserDataUI" />
     <engine:Template name="StatisticsUI" src="project://database/Assets/Editor/StatisticsUI.uxml?fileID=9197481963319205126&amp;guid=114515dbc0d8048f9982c5d1d411eb96&amp;type=3#StatisticsUI" />
+    <engine:Template name="LeaderboardUI" src="project://database/Assets/Editor/LeaderboardUI.uxml?fileID=9197481963319205126&amp;guid=41d0102101a2348028af7b80de35b569&amp;type=3#LeaderboardUI" />
     <Style src="project://database/Assets/Editor/Features.uss?fileID=7433441132597879392&amp;guid=0e18b2ac634a6425eb9eb812eace292a&amp;type=3#Features" />
     <engine:Label text="P00LS SDK" name="Title" class="custom-label" />
     <engine:VisualElement style="flex-grow: initial;">
@@ -22,6 +23,9 @@
             </engine:Tab>
             <engine:Tab label="Stats" name="Statistics">
                 <engine:Instance template="StatisticsUI" />
+            </engine:Tab>
+            <engine:Tab label="Leaderboard" name="Leaderboard">
+                <engine:Instance template="LeaderboardUI" />
             </engine:Tab>
         </engine:TabView>
     </engine:VisualElement>

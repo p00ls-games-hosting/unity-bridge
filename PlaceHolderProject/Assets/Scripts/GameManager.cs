@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private ReferralUIController _referralUI;
     private UserDataUIController _userDataUI;
     private StatisticsUIController _statisticsUI;
+    private LeaderboardUIController _leaderboardUI;
 
 
     private void Awake()
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         _purchaseUI = FindFirstObjectByType<PurchaseUIController>();
         _userDataUI = FindFirstObjectByType<UserDataUIController>();
         _statisticsUI = FindFirstObjectByType<StatisticsUIController>();
+        _leaderboardUI = FindFirstObjectByType<LeaderboardUIController>();
 
         _auth.OnUserInfoAsked += OnUserInfoAsked;
         _purchaseUI.OnPurchaseItem += OnPurchaseItem;
@@ -39,7 +41,18 @@ public class GameManager : MonoBehaviour
         _statisticsUI.OnStatisticsAsked += LoadStatistics;
         _statisticsUI.OnStatisticsUpdateAsked += UpdateStatistics;
 
+        _leaderboardUI.OnPositionAsked += GetUserPosition;
+
         sdk.OnPurchase += OnPurchaseDone;
+    }
+
+    private void GetUserPosition(string statistic)
+    {
+        sdk.GetUserPosition(statistic, (result) =>
+        {
+            _mainUIController.Log("Position:");
+            _mainUIController.AppendLog($"Position: {result?.position}, Value: {result?.value}");
+        });
     }
 
     private void UpdateStatistics(StatisticUpdate[] updates)

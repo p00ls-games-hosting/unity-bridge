@@ -73,5 +73,12 @@ mergeInto(LibraryManager.library, {
         dispatchUnityEvent('updatestatistics', {
             params: JSON.parse(UTF8ToString(params)),
         });
+    },
+    p00ls_GetUserPosition: function (statistic, objectName, callback) {
+        dispatchUnityEvent('getuserposition', {
+            callback: UTF8ToString(callback),
+            objectName: UTF8ToString(objectName),
+            statistic: UTF8ToString(statistic)
+        });
     }
 });

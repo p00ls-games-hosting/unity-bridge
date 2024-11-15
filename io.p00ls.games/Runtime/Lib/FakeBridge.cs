@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Unity.Serialization.Json;
 using UnityEngine;
 
@@ -210,6 +209,26 @@ namespace P00LS.Games
             }
         }
 
+        public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback)
+        {
+            Debug.Log($"GetUserPosition: {statisticName}");
+            var statistics = ReadStatistics();
+            if (statistics.ContainsKey(statisticName))
+            {
+                callback.Invoke(new UserLeaderboardPosition
+                {
+                    position = 1,
+                    value = statistics[statisticName].value,
+                    version = statistics[statisticName].version,
+                    resetIn = statistics[statisticName].resetIn
+                });
+            }
+            else
+            {
+                callback.Invoke(null);
+            }
+        }
+
         public void GetUserDataCallback(string value)
         {
         }
@@ -250,6 +269,11 @@ namespace P00LS.Games
         public void GetStatisticsCallback(string value)
         {
             Debug.Log($"GetStatisticsCallback: {value}");
+        }
+
+        public void GetUserPositionCallback(string value)
+        {
+            Debug.Log($"GetUserPositionCallback: {value}");
         }
     }
 }

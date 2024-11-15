@@ -76,4 +76,12 @@ namespace P00LS.Games
         public string name;
         public long value;
     }
+
+    public struct UserLeaderboardPosition
+    {
+        public int position;
+        public long value;
+        public int version;
+        public long? resetIn;
+    }
 }

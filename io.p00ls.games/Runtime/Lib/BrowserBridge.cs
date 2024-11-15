@@ -16,6 +16,7 @@ namespace P00LS.Games
         private Action<Referrer> _getReferrerHandler;
         private Action<GetRefereesResult> _getRefereesHandler;
         private Action<Dictionary<string, Statistic>> _getStatisticsCallback;
+        private Action<UserLeaderboardPosition?> _getUserPositionCallback;
 
         public BrowserBridge(string objectName)
         {
@@ -141,6 +142,12 @@ namespace P00LS.Games
             JsFunctions.p00ls_UpdateStatistics(JsonSerialization.ToJson(statisticUpdate));
         }
 
+        public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback)
+        {
+            _getUserPositionCallback = callback;
+            JsFunctions.p00ls_GetUserPosition(statisticName, _objectName, "GetUserPositionCallback");
+        }
+
         public void OnPurchaseCallback(string value)
         {
             var rawPurchaseResult = JsonSerialization.FromJson<RawPurchaseResult>(value);
@@ -212,6 +219,13 @@ namespace P00LS.Games
         {
             _getStatisticsCallback?.Invoke(JsonSerialization.FromJson<Dictionary<string, Statistic>>(value));
             _getStatisticsCallback = null;
+        }
+
+        public void GetUserPositionCallback(string value)
+        {
+            var result = JsonHelper.FromJson<UserLeaderboardPosition>(value);
+            _getUserPositionCallback?.Invoke(result);
+            _getUserPositionCallback = null;
         }
 
         public void GetUserDataCallback(string value)

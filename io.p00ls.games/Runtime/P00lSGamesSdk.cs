@@ -140,6 +140,11 @@ namespace P00LS.Games
             _bridge.UpdateStatistic(statisticUpdate);
         }
 
+        public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback)
+        {
+            _bridge.GetUserPosition(statisticName, callback);
+        }
+
         private void GetUserDataCallback(string value)
         {
             _bridge.GetUserDataCallback(value);
@@ -183,6 +188,11 @@ namespace P00LS.Games
         private void GetStatisticsCallback(string payload)
         {
             _bridge.GetStatisticsCallback(payload);
+        }
+
+        private void GetUserPositionCallback(string payload)
+        {
+            _bridge.GetUserPositionCallback(payload);
         }
     }
 }

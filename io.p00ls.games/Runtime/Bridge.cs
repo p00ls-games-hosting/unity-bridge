@@ -44,6 +44,8 @@ namespace P00LS.Games
         public void GetStatistics(Action<Dictionary<string, Statistic>> callback);
 
         public void UpdateStatistic(StatisticUpdate[] statisticUpdate);
+        
+        public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback);
     }
 
     public enum AdType

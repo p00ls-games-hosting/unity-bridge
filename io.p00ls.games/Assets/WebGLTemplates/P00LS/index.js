@@ -117,6 +117,11 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                 sdk.statistics.fetchValues().then(values => {
                     unityInstance.SendMessage(objectName, callback, JSON.stringify(values));
                 })
+            },
+            'getuserposition': ({objectName, callback, statistic}) => {
+                sdk.statistics.fetchLeaderboardPosition(statistic).then(function (data) {
+                    unityInstance.SendMessage(objectName, callback, data ? JSON.stringify(data) : 'null');
+                });
             }
         }
     }

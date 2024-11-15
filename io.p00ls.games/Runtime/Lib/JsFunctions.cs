@@ -48,5 +48,8 @@ namespace P00LS.Games
 
         [DllImport("__Internal")]
         public static extern void p00ls_UpdateStatistics(string updateParams);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_GetUserPosition(string statistic, string objectName, string callback);
     }
 }
