@@ -54,5 +54,8 @@ namespace P00LS.Games
         
         [DllImport("__Internal")]
         public static extern void p00ls_GetLeaderboard(string parameters, string objectName, string callback);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_GetLeaderboardAround(string parameters, string objectName, string callback);
     }
 }

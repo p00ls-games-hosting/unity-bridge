@@ -16,13 +16,14 @@ public class LeaderboardUIController : MonoBehaviour
     private Button _getLeaderboardAround;
     private readonly LeaderboardDataSource _source = new();
 
-    public delegate void PositionAsked(string statistic);
+    public delegate void StatisticEventHandler(string statistic);
     
-    public delegate void GetLeaderboard(string statistic);  
 
-    public event PositionAsked OnPositionAsked;
+    public event StatisticEventHandler OnPositionAsked;
     
-    public event GetLeaderboard OnGlobalLeaderboardAsked;
+    public event StatisticEventHandler OnGlobalLeaderboardAsked;
+    
+    public event StatisticEventHandler OnLeaderboardAroundAsked;
 
     private void OnEnable()
     {
@@ -43,6 +44,12 @@ public class LeaderboardUIController : MonoBehaviour
         _getLeaderboard.clicked += AskGlobalLeaderboard;
         
         _getLeaderboardAround = tab.Q<Button>("LeaderboardAround");
+        _getLeaderboardAround.clicked += AskLeaderboardAround;
+    }
+
+    private void AskLeaderboardAround()
+    {
+        OnLeaderboardAroundAsked?.Invoke(_source.StatisticName);
     }
 
     private void AskGlobalLeaderboard()

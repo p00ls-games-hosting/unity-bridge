@@ -127,6 +127,11 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                 sdk.statistics.fetchLeaderboard(statistic, rest).then(data => {
                     unityInstance.SendMessage(objectName, callback, JSON.stringify(data));
                 })
+            },
+            'getleaderboardround': ({objectName, callback, params:{statistic,limit}}) => {
+                sdk.statistics.fetchLeaderboardAround(statistic, {limit}).then(function (data) {
+                    unityInstance.SendMessage(objectName, callback, JSON.stringify(data));
+                });
             }
         }
     }

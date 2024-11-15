@@ -257,6 +257,11 @@ namespace P00LS.Games
             }
         }
 
+        public void GetLeaderboardAround(string statisticName, Action<Leaderboard> callback, int pageSize = 10)
+        {
+            GetLeaderboard(statisticName, callback);
+        }
+
         public void GetUserDataCallback(string value)
         {
         }

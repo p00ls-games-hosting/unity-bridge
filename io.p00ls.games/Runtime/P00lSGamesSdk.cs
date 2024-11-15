@@ -150,6 +150,11 @@ namespace P00LS.Games
             _bridge.GetLeaderboard(statisticName, callback, pageSize, next);
         }
 
+        public void GetLeaderboardAround(string statisticName, Action<Leaderboard> callback, int pageSize = 10)
+        {
+            _bridge.GetLeaderboardAround(statisticName, callback, pageSize);
+        }
+
         private void GetUserDataCallback(string value)
         {
             _bridge.GetUserDataCallback(value);

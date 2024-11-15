@@ -48,6 +48,8 @@ namespace P00LS.Games
         public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback);
         
         public void GetLeaderboard(string statisticName, Action<Leaderboard> callback, int pageSize = 50, string next = null);
+        
+        public void GetLeaderboardAround(string statisticName, Action<Leaderboard> callback, int pageSize = 10);
     }
 
     public enum AdType

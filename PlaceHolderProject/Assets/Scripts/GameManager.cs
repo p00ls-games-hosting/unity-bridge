@@ -43,8 +43,18 @@ public class GameManager : MonoBehaviour
 
         _leaderboardUI.OnPositionAsked += GetUserPosition;
         _leaderboardUI.OnGlobalLeaderboardAsked += GetGlobalLeaderboard;
+        _leaderboardUI.OnLeaderboardAroundAsked += GetLeaderboardAround;
 
         sdk.OnPurchase += OnPurchaseDone;
+    }
+
+    private void GetLeaderboardAround(string statistic)
+    {
+        sdk.GetLeaderboardAround(statistic, leaderboard =>
+        {
+            _mainUIController.Log("Leaderboard around");
+            LogLeaderboard(leaderboard);
+        });
     }
 
     private void GetGlobalLeaderboard(string statistic)
@@ -52,15 +62,20 @@ public class GameManager : MonoBehaviour
         sdk.GetLeaderboard(statistic, leaderboard =>
         {
             _mainUIController.Log("Global leaderboard");
-            _mainUIController.AppendLog($"Version: {leaderboard.version}");
-            _mainUIController.AppendLog($"Reset: {leaderboard.resetIn.HasValue}:{leaderboard.resetIn}");
-            _mainUIController.AppendLog($"Next: {leaderboard.next != null}{leaderboard.next}");
-            foreach (var leaderboardEntry in leaderboard.entries)
-            {
-                _mainUIController.AppendLog($"Entry: {leaderboardEntry.displayName}:{leaderboardEntry.position}");
-                
-            }
+            LogLeaderboard(leaderboard);
         });
+    }
+
+    private void LogLeaderboard(Leaderboard leaderboard)
+    {
+        _mainUIController.AppendLog($"Version: {leaderboard.version}");
+        _mainUIController.AppendLog($"Reset: {leaderboard.resetIn.HasValue}:{leaderboard.resetIn}");
+        _mainUIController.AppendLog($"Next: {leaderboard.next != null}{leaderboard.next}");
+        foreach (var leaderboardEntry in leaderboard.entries)
+        {
+            _mainUIController.AppendLog($"Entry: {leaderboardEntry.displayName}:{leaderboardEntry.position}");
+                
+        }
     }
 
     private void GetUserPosition(string statistic)

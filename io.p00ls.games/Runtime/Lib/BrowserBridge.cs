@@ -161,6 +161,13 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetLeaderboard(JsonSerialization.ToJson(pa), _objectName, "GetLeaderboardCallback");
         }
 
+        public void GetLeaderboardAround(string statisticName, Action<Leaderboard> callback, int pageSize)
+        {
+            _getLeaderboardCallback = callback;
+            var pa = new Dictionary<string, Object> { { "limit", pageSize }, {"statistic", statisticName } };
+            JsFunctions.p00ls_GetLeaderboardAround(JsonSerialization.ToJson(pa), _objectName, "GetLeaderboardCallback");
+        }
+
         public void OnPurchaseCallback(string value)
         {
             var rawPurchaseResult = JsonSerialization.FromJson<RawPurchaseResult>(value);

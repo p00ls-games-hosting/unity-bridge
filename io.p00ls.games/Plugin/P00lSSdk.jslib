@@ -87,5 +87,12 @@ mergeInto(LibraryManager.library, {
             objectName: UTF8ToString(objectName),
             callback: UTF8ToString(callback)
         });
+    },
+    p00ls_GetLeaderboardAround: function (params, objectName, callback) {
+        dispatchUnityEvent('getleaderboardround', {
+            params: JSON.parse(UTF8ToString(params)),
+            objectName: UTF8ToString(objectName),
+            callback:UTF8ToString(callback)
+        })
     }
 });
