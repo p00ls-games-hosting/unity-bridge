@@ -71,13 +71,6 @@ namespace P00LS.Games
         public long? resetIn;
     }
 
-    [Serializable]
-    public struct StatisticUpdate
-    {
-        public string name;
-        public long value;
-    }
-
     public struct UserLeaderboardPosition
     {
         public int position;
