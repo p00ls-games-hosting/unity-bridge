@@ -43,7 +43,7 @@ namespace P00LS.Games
 
         public void GetStatistics(Action<Dictionary<string, Statistic>> callback);
 
-        public void UpdateStatistic(StatisticUpdate[] statisticUpdate);
+        public void UpdateStatistic(Dictionary<string, long> updates);
         
         public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback);
         

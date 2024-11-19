@@ -138,9 +138,9 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetStatistics(_objectName, "GetStatisticsCallback");
         }
 
-        public void UpdateStatistic(StatisticUpdate[] statisticUpdate)
+        public void UpdateStatistic(Dictionary<string, long> updates)
         {
-            JsFunctions.p00ls_UpdateStatistics(JsonSerialization.ToJson(statisticUpdate));
+            JsFunctions.p00ls_UpdateStatistics(JsonSerialization.ToJson(updates));
         }
 
         public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback)

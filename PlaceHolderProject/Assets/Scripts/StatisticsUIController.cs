@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using P00LS.Games;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,7 +10,7 @@ public class StatisticsUIController : MonoBehaviour
 
     public delegate void StatisticsAsked();
 
-    public delegate void StatisticsUpdateAsked(StatisticUpdate[] updates);
+    public delegate void StatisticsUpdateAsked(Dictionary<string, long> updates);
 
 
     public event StatisticsAsked OnStatisticsAsked;
@@ -39,20 +40,10 @@ public class StatisticsUIController : MonoBehaviour
 
     private void UpdateStatistics()
     {
-        OnStatisticsUpdateAsked?.Invoke(new StatisticUpdate[]
+        OnStatisticsUpdateAsked?.Invoke(new Dictionary<string, long>
         {
-            new()
-            {
-                name = "test_var_1",
-                value = 100
-                
-            },
-            new()
-            {
-                name = "test_var_2",
-                value = 300
-                
-            }
+            { "test_var_1", 100 },
+            { "test_var_2", 300 },
         });
     }
 }

@@ -182,21 +182,21 @@ namespace P00LS.Games
             }
         }
 
-        public void UpdateStatistic(StatisticUpdate[] statisticUpdate)
+        public void UpdateStatistic(Dictionary<string, long> updates)
         {
             try
             {
                 var dictionary = ReadStatistics();
-                foreach (var update in statisticUpdate)
+                foreach (var (name, value) in updates)
                 {
                     var def = new Statistic
                     {
                         version = 1,
                         resetIn = null
                     };
-                    var elem = dictionary.GetValueOrDefault(update.name, def);
-                    elem.value = update.value;
-                    dictionary[update.name] = elem;
+                    var elem = dictionary.GetValueOrDefault(name, def);
+                    elem.value = value;
+                    dictionary[name] = elem;
                 }
 
                 var userDataPath = GetStatisticsPath();
@@ -233,9 +233,8 @@ namespace P00LS.Games
             string next = null)
         {
             var stats = ReadStatistics();
-            if (stats.ContainsKey(statisticName))
+            if (stats.TryGetValue(statisticName, out var statValue))
             {
-                var statValue = stats[statisticName];
                 callback.Invoke(new Leaderboard
                 {
                     entries = new[]

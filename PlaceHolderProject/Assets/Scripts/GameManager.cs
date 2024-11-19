@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Globalization;
 using P00LS.Games;
 using UnityEngine;
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
         });
     }
 
-    private void UpdateStatistics(StatisticUpdate[] updates)
+    private void UpdateStatistics(Dictionary<string, long> updates)
     {
         sdk.UpdateStatistic(updates);
     }

@@ -135,9 +135,9 @@ namespace P00LS.Games
             _bridge.GetStatistics(callback);
         }
 
-        public void UpdateStatistic(StatisticUpdate[] statisticUpdate)
+        public void UpdateStatistic(Dictionary<string, long> updates)
         {
-            _bridge.UpdateStatistic(statisticUpdate);
+            _bridge.UpdateStatistic(updates);
         }
 
         public void GetUserPosition(string statisticName, Action<UserLeaderboardPosition?> callback)
