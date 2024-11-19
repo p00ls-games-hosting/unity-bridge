@@ -152,7 +152,7 @@ namespace P00LS.Games
         public void GetLeaderboard(string statisticName, Action<Leaderboard> callback, int pageSize = 50, string next = null)
         {
             _getLeaderboardCallback = callback;
-            var pa = new Dictionary<string, Object> { { "limit", pageSize }, {"statistic", statisticName } };
+            var pa = new Dictionary<string, Object> { { "pageSize", pageSize }, {"statistic", statisticName } };
             if (next != null)
             {
                 pa.Add("next", next);
@@ -164,7 +164,7 @@ namespace P00LS.Games
         public void GetLeaderboardAround(string statisticName, Action<Leaderboard> callback, int pageSize)
         {
             _getLeaderboardCallback = callback;
-            var pa = new Dictionary<string, Object> { { "limit", pageSize }, {"statistic", statisticName } };
+            var pa = new Dictionary<string, Object> { { "pageSize", pageSize }, {"statistic", statisticName } };
             JsFunctions.p00ls_GetLeaderboardAround(JsonSerialization.ToJson(pa), _objectName, "GetLeaderboardCallback");
         }
 
