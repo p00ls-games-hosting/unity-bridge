@@ -104,6 +104,9 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                 sdk.referral.getReferrer().then(referrer => unityInstance.SendMessage(objectName, callback, referrer ? JSON.stringify(referrer) : 'null'));
             },
             'getreferees': ({objectName, callback, params}) => {
+                if(params.since) {
+                    params.since = new Date(params.since);
+                }
                 sdk.referral.getReferees(params).then(result => unityInstance.SendMessage(objectName, callback, JSON.stringify(result)));
             },
             'updatestatistics': ({params}) => {

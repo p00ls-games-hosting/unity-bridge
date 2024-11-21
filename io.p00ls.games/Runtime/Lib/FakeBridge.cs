@@ -151,7 +151,7 @@ namespace P00LS.Games
             callback.Invoke(new Referrer { firstName = "Fake referrer" });
         }
 
-        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null)
+        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null, DateTime? since = null)
         {
             callback(new GetRefereesResult
             {

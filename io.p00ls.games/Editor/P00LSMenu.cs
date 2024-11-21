@@ -43,7 +43,7 @@ namespace P00LS.Games.Editor
 
         private static void ResetToDefault()
         {
-            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v3.3");
+            PlayerSettings.SetTemplateCustomValue("P00LS_SDK_VERSION", "v4");
         }
 
         private static void CopyWebGLTemplate()

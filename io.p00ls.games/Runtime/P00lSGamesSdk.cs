@@ -125,9 +125,9 @@ namespace P00LS.Games
             _bridge.GetReferrer(callback);
         }
 
-        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null)
+        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null, DateTime? since = null)
         {
-            _bridge.GetReferees(callback, pageSize, next);
+            _bridge.GetReferees(callback, pageSize, next, since);
         }
 
         public void GetStatistics(Action<Dictionary<string, Statistic>> callback)

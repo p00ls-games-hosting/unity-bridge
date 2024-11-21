@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Unity.Serialization.Json;
 using UnityEngine;
 using Object = System.Object;
@@ -120,13 +121,17 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetReferrer(_objectName, "GetReferrerCallback");
         }
 
-        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null)
+        public void GetReferees(Action<GetRefereesResult> callback, int pageSize = 50, string next = null, DateTime? since = null)
         {
             _getRefereesHandler = callback;
             var pa = new Dictionary<string, Object> { { "pageSize", pageSize } };
             if (next != null)
             {
                 pa.Add("next", next);
+            }
+            if(since != null)
+            {
+                pa.Add("since", since.Value.ToString("O", CultureInfo.InvariantCulture));
             }
 
             JsFunctions.p00ls_GetReferees(JsonSerialization.ToJson(pa), _objectName, "GetRefereesCallback");

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using P00LS.Games;
@@ -75,7 +76,6 @@ public class GameManager : MonoBehaviour
         foreach (var leaderboardEntry in leaderboard.entries)
         {
             _mainUIController.AppendLog($"Entry: {leaderboardEntry.displayName}:{leaderboardEntry.position}");
-                
         }
     }
 
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
                 _mainUIController.AppendLog(
                     $"Referee: {referee.firstName}, {referee.createdAt.ToString(CultureInfo.InvariantCulture)}");
             }
-        });
+        }, since: DateTime.Now);
     }
 
     private void OnGetReferralLink()
