@@ -115,6 +115,11 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetReferralLink(_objectName, "GetReferralLinkCallback");
         }
 
+        public void ShareReferralLink(string message = null)
+        {
+            JsFunctions.p00ls_ShareReferralLink(message);
+        }
+
         public void GetReferrer(Action<Referrer> callback)
         {
             _getReferrerHandler = callback;

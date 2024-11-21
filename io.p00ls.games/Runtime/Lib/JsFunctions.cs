@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using JetBrains.Annotations;
 
 namespace P00LS.Games
 {
@@ -57,5 +58,8 @@ namespace P00LS.Games
         
         [DllImport("__Internal")]
         public static extern void p00ls_GetLeaderboardAround(string parameters, string objectName, string callback);
+
+        [DllImport("__Internal")]
+        public static extern void p00ls_ShareReferralLink([CanBeNull] string message);
     }
 }

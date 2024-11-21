@@ -3,4 +3,5 @@
     <engine:Button text="Get referral link" name="GetReferralLink" />
     <engine:Button text="Get referrer" name="GetReferrer" />
     <engine:Button text="Get referees" name="GetReferees" />
+    <engine:Button text="Share link" name="Share" />
 </engine:UXML>

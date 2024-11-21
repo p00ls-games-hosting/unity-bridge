@@ -120,6 +120,11 @@ namespace P00LS.Games
             _bridge.GetReferralLink(callback);
         }
 
+        public void ShareReferralLink(string message = null)
+        {
+            _bridge.ShareReferralLink(message);
+        }
+        
         public void GetReferrer(Action<Referrer> callback)
         {
             _bridge.GetReferrer(callback);

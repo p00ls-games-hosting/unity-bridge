@@ -146,6 +146,11 @@ namespace P00LS.Games
             callback.Invoke("https://www.google.com");
         }
 
+        public void ShareReferralLink(string message = null)
+        {
+            Debug.Log($"ShareReferralLink ${message}");
+        }
+
         public void GetReferrer(Action<Referrer> callback)
         {
             callback.Invoke(new Referrer { firstName = "Fake referrer" });

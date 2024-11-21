@@ -36,6 +36,8 @@ namespace P00LS.Games
         public void ShowAd(AdType type, Action<bool> callback);
 
         public void GetReferralLink(Action<string> callback);
+        
+        public void ShareReferralLink(string message = null);
 
         public void GetReferrer(Action<Referrer> callback);
 
@@ -50,6 +52,7 @@ namespace P00LS.Games
         public void GetLeaderboard(string statisticName, Action<Leaderboard> callback, int pageSize = 50, string next = null);
         
         public void GetLeaderboardAround(string statisticName, Action<Leaderboard> callback, int pageSize = 10);
+        
     }
 
     public enum AdType

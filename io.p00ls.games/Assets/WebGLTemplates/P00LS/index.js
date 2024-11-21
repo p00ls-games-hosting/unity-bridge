@@ -100,6 +100,9 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
             'getreferrallink': ({objectName, callback}) => {
                 sdk.referral.getReferralLink().then((link) => unityInstance.SendMessage(objectName, callback, link));
             },
+            'sharereferrallink': ({message}) => {
+                sdk.referral.shareLink(message !== "" ? message:undefined);
+            },
             'getreferrer': ({objectName, callback}) => {
                 sdk.referral.getReferrer().then(referrer => unityInstance.SendMessage(objectName, callback, referrer ? JSON.stringify(referrer) : 'null'));
             },

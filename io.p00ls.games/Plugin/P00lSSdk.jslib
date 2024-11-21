@@ -94,5 +94,10 @@ mergeInto(LibraryManager.library, {
             objectName: UTF8ToString(objectName),
             callback:UTF8ToString(callback)
         })
+    },
+    p00ls_ShareReferralLink: function(message) {
+        dispatchUnityEvent('sharereferrallink', {
+            message: UTF8ToString(message)
+        })
     }
 });

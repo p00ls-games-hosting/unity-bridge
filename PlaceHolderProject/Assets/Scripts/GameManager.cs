@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         _referralUI.OnGetReferrer += OnGetReferrer;
         _referralUI.OnGetReferralLink += OnGetReferralLink;
         _referralUI.OnGetReferees += OnGetReferees;
+        _referralUI.OnShareLink += OnShareLink;
 
         _userDataUI.OnLoadUserData += LoadUserData;
         _userDataUI.OnSaveUserData += SaveUserData;
@@ -48,6 +49,11 @@ public class GameManager : MonoBehaviour
         _leaderboardUI.OnLeaderboardAroundAsked += GetLeaderboardAround;
 
         sdk.OnPurchase += OnPurchaseDone;
+    }
+
+    private void OnShareLink()
+    {
+        sdk.ShareReferralLink();
     }
 
     private void GetLeaderboardAround(string statistic)
