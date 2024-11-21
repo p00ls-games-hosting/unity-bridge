@@ -101,13 +101,13 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                 sdk.referral.getReferralLink().then((link) => unityInstance.SendMessage(objectName, callback, link));
             },
             'sharereferrallink': ({message}) => {
-                sdk.referral.shareLink(message !== "" ? message:undefined);
+                sdk.referral.shareLink(message !== "" ? message : undefined);
             },
             'getreferrer': ({objectName, callback}) => {
                 sdk.referral.getReferrer().then(referrer => unityInstance.SendMessage(objectName, callback, referrer ? JSON.stringify(referrer) : 'null'));
             },
             'getreferees': ({objectName, callback, params}) => {
-                if(params.since) {
+                if (params.since) {
                     params.since = new Date(params.since);
                 }
                 sdk.referral.getReferees(params).then(result => unityInstance.SendMessage(objectName, callback, JSON.stringify(result)));
@@ -125,14 +125,19 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                     unityInstance.SendMessage(objectName, callback, data ? JSON.stringify(data) : 'null');
                 });
             },
-            'getleaderboard': ({objectName, callback, params:{statistic, ...rest}}) => {
+            'getleaderboard': ({objectName, callback, params: {statistic, ...rest}}) => {
                 sdk.statistics.fetchLeaderboard(statistic, rest).then(data => {
                     unityInstance.SendMessage(objectName, callback, JSON.stringify(data));
                 })
             },
-            'getleaderboardaround': ({objectName, callback, params:{statistic, ...rest}}) => {
+            'getleaderboardaround': ({objectName, callback, params: {statistic, ...rest}}) => {
                 sdk.statistics.fetchLeaderboardAround(statistic, rest).then(function (data) {
                     unityInstance.SendMessage(objectName, callback, JSON.stringify(data));
+                });
+            },
+            'getservertime': ({objectName, callback}) => {
+                sdk.tma.getServerTime().then(function (data) {
+                    unityInstance.SendMessage(objectName, callback, data.toISOString())
                 });
             }
         }

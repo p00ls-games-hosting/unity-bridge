@@ -160,6 +160,11 @@ namespace P00LS.Games
             _bridge.GetLeaderboardAround(statisticName, callback, pageSize);
         }
 
+        public void GetServerTime(Action<DateTime> callback)
+        {
+            _bridge.GetServerTime(callback);
+        }
+
         private void GetUserDataCallback(string value)
         {
             _bridge.GetUserDataCallback(value);
@@ -213,6 +218,11 @@ namespace P00LS.Games
         private void GetLeaderboardCallback(string payload)
         {
             _bridge.GetLeaderboardCallback(payload);
+        }
+
+        private void GetServerTimeCallback(string payload)
+        {
+            _bridge.GetServerTimeCallback(payload);
         }
     }
 }

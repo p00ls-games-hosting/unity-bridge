@@ -52,7 +52,9 @@ namespace P00LS.Games
         public void GetLeaderboard(string statisticName, Action<Leaderboard> callback, int pageSize = 50, string next = null);
         
         public void GetLeaderboardAround(string statisticName, Action<Leaderboard> callback, int pageSize = 10);
-        
+
+        public void GetServerTime(Action<DateTime> callback);
+
     }
 
     public enum AdType

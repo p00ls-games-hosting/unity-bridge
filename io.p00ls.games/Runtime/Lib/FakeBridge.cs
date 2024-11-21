@@ -266,6 +266,12 @@ namespace P00LS.Games
             GetLeaderboard(statisticName, callback);
         }
 
+        public void GetServerTime(Action<DateTime> callback)
+        {
+            Debug.Log("GetServerTime");
+            callback.Invoke(DateTime.UtcNow);
+        }
+
         public void GetUserDataCallback(string value)
         {
         }
@@ -316,6 +322,11 @@ namespace P00LS.Games
         public void GetLeaderboardCallback(string value)
         {
             Debug.Log($"GetLeaderboardCallback: {value}");
+        }
+
+        public void GetServerTimeCallback(string value)
+        {
+            Debug.Log($"GetServerTimeCallback: {value}");
         }
     }
 }

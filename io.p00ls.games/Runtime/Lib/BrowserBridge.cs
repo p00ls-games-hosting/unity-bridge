@@ -19,6 +19,7 @@ namespace P00LS.Games
         private Action<Dictionary<string, Statistic>> _getStatisticsCallback;
         private Action<UserLeaderboardPosition?> _getUserPositionCallback;
         private Action<Leaderboard> _getLeaderboardCallback;
+        private Action<DateTime> _getServerTimeCallback;
 
         public BrowserBridge(string objectName)
         {
@@ -178,6 +179,12 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetLeaderboardAround(JsonSerialization.ToJson(pa), _objectName, "GetLeaderboardCallback");
         }
 
+        public void GetServerTime(Action<DateTime> callback)
+        {
+            _getServerTimeCallback = callback;
+            JsFunctions.p00ls_GetServerTime(_objectName, "GetServerTimeCallback");
+        }
+
         public void OnPurchaseCallback(string value)
         {
             var rawPurchaseResult = JsonSerialization.FromJson<RawPurchaseResult>(value);
@@ -263,6 +270,13 @@ namespace P00LS.Games
             var result = JsonHelper.FromJson<Leaderboard>(value);
             _getLeaderboardCallback?.Invoke(result);
             _getLeaderboardCallback = null;
+        }
+
+        public void GetServerTimeCallback(string value)
+        {
+            var parsed = DateTime.Parse(value);
+            _getServerTimeCallback?.Invoke(parsed);
+            _getServerTimeCallback = null;
         }
 
         public void GetUserDataCallback(string value)

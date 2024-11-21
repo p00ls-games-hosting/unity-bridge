@@ -61,5 +61,8 @@ namespace P00LS.Games
 
         [DllImport("__Internal")]
         public static extern void p00ls_ShareReferralLink([CanBeNull] string message);
+        
+        [DllImport("Internal")]
+        public static extern void p00ls_GetServerTime(string objectName, string callback);
     }
 }

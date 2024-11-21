@@ -51,6 +51,11 @@ public class GameManager : MonoBehaviour
         sdk.OnPurchase += OnPurchaseDone;
     }
 
+    private void Start()
+    {
+        sdk.GetServerTime(date => _mainUIController.Log($"Server time: {date.ToString(CultureInfo.InvariantCulture)}"));
+    }
+
     private void OnShareLink()
     {
         sdk.ShareReferralLink();

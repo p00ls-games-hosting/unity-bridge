@@ -99,5 +99,11 @@ mergeInto(LibraryManager.library, {
         dispatchUnityEvent('sharereferrallink', {
             message: UTF8ToString(message)
         })
+    },
+    p00ls_GetServerTime: function(objectName, callback) {
+        dispatchUnityEvent('getservertime', {
+            objectName: UT8ToString(objectName),
+            callback: UT8ToString(callback)
+        })
     }
 });
