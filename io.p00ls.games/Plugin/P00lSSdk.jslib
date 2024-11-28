@@ -92,18 +92,40 @@ mergeInto(LibraryManager.library, {
         dispatchUnityEvent('getleaderboardaround', {
             params: JSON.parse(UTF8ToString(params)),
             objectName: UTF8ToString(objectName),
-            callback:UTF8ToString(callback)
-        })
+            callback: UTF8ToString(callback)
+        });
     },
-    p00ls_ShareReferralLink: function(message) {
+    p00ls_ShareReferralLink: function (message) {
+        const parsedMessage = UTF8ToString(message);
         dispatchUnityEvent('sharereferrallink', {
-            message: UTF8ToString(message)
-        })
+            message: parsedMessage === '' ? undefined : parsedMessage
+        });
     },
-    p00ls_GetServerTime: function(objectName, callback) {
+    p00ls_GetServerTime: function (objectName, callback) {
         dispatchUnityEvent('getservertime', {
-            objectName: UT8ToString(objectName),
-            callback: UT8ToString(callback)
-        })
+            objectName: UTF8ToString(objectName),
+            callback: UTF8ToString(callback)
+        });
+    },
+    p00ls_ShareURL: function (url, message) {
+        const parsedMessage = UTF8ToString(message);
+        dispatchUnityEvent('shareurl', {
+            url: UTF8ToString(url),
+            message: parsedMessage === '' ? undefined : parsedMessage
+        });
+    },
+    p00ls_OpenURL: function (url) {
+        dispatchUnityEvent('openurl', {
+            url: UTF8ToString(url)
+        });
+    },
+    p00ls_InitiateWalletChange: function () {
+        dispatchUnityEvent('initiatewalletchange');
+    },
+    p00ls_GetUserWalletAddress: function (objectName, callback) {
+        dispatchUnityEvent('getuserwalletaddress', {
+            objectName: UTF8ToString(objectName),
+            callback: UTF8ToString(callback)
+        });
     }
 });

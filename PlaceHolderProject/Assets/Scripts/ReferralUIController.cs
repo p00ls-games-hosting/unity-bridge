@@ -17,7 +17,6 @@ public class ReferralUIController : MonoBehaviour
 
     public void OnEnable()
     {
-        var uiDocument = GetComponent<UIDocument>();
         var tab = GetComponent<UIDocument>().rootVisualElement.Q<Tab>("Referral");
         _getReferralLinkButton = tab.Q<Button>("GetReferralLink");
         _getReferrerButton = tab.Q<Button>("GetReferrer");

@@ -1,4 +1,4 @@
-export const sdkVersion = "{{{ P00LS_SDK_VERSION }}}";
+export const sdkVersion = "v4";
 
 const buildUrl = "Build";
 

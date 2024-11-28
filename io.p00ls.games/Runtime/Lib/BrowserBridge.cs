@@ -20,6 +20,7 @@ namespace P00LS.Games
         private Action<UserLeaderboardPosition?> _getUserPositionCallback;
         private Action<Leaderboard> _getLeaderboardCallback;
         private Action<DateTime> _getServerTimeCallback;
+        private Action<string> _getUserWalletAddressCallback;
 
         public BrowserBridge(string objectName)
         {
@@ -185,6 +186,27 @@ namespace P00LS.Games
             JsFunctions.p00ls_GetServerTime(_objectName, "GetServerTimeCallback");
         }
 
+        public void GetUserWalletAddress(Action<string> callback)
+        {
+            _getUserWalletAddressCallback = callback;
+            JsFunctions.p00ls_GetUserWalletAddress(_objectName, "GetUserWalletAddressCallback");
+        }
+
+        public void InitiateWalletChange()
+        {
+            JsFunctions.p00ls_InitiateWalletChange();
+        }
+
+        public void OpenURL(string url)
+        {
+            JsFunctions.p00ls_OpenURL(url);
+        }
+
+        public void ShareURL(string url, string message = null)
+        {
+            JsFunctions.p00ls_ShareURL(url, message);
+        }
+
         public void OnPurchaseCallback(string value)
         {
             var rawPurchaseResult = JsonSerialization.FromJson<RawPurchaseResult>(value);
@@ -277,6 +299,12 @@ namespace P00LS.Games
             var parsed = DateTime.Parse(value);
             _getServerTimeCallback?.Invoke(parsed);
             _getServerTimeCallback = null;
+        }
+
+        public void GetUserWalletAddressCallback(string value)
+        {
+            _getUserWalletAddressCallback?.Invoke(string.IsNullOrEmpty(value) ? null : value);
+            _getUserWalletAddressCallback = null;
         }
 
         public void GetUserDataCallback(string value)

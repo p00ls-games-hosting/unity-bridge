@@ -55,6 +55,14 @@ namespace P00LS.Games
 
         public void GetServerTime(Action<DateTime> callback);
 
+        public void GetUserWalletAddress(Action<string> callback);
+
+        public void InitiateWalletChange();
+
+        public void OpenURL(string url);
+        
+        public void ShareURL(string url, string message = null);
+
     }
 
     public enum AdType

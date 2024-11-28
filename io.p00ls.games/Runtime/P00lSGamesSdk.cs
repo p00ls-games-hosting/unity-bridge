@@ -165,6 +165,26 @@ namespace P00LS.Games
             _bridge.GetServerTime(callback);
         }
 
+        public void GetUserWalletAddress(Action<string> callback)
+        {
+            _bridge.GetUserWalletAddress(callback);
+        }
+
+        public void InitiateWalletChange()
+        {
+            _bridge.InitiateWalletChange();
+        }
+
+        public void OpenURL(string url)
+        {
+            _bridge.OpenURL(url);
+        }
+
+        public void ShareURL(string url, string message = null)
+        {
+            _bridge.ShareURL(url, message);
+        }
+
         private void GetUserDataCallback(string value)
         {
             _bridge.GetUserDataCallback(value);
@@ -223,6 +243,11 @@ namespace P00LS.Games
         private void GetServerTimeCallback(string payload)
         {
             _bridge.GetServerTimeCallback(payload);
+        }
+        
+        private void GetUserWalletAddressCallback(string payload)
+        {
+            _bridge.GetUserWalletAddressCallback(payload);
         }
     }
 }

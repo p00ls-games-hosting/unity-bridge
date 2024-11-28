@@ -25,6 +25,8 @@ namespace P00LS.Games
         void GetLeaderboardCallback(string value);
 
         void GetServerTimeCallback(string value);
+
+        void GetUserWalletAddressCallback(string value);
     }
 
     internal interface IInternalBridge : IBridge, IReceiver

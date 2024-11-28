@@ -101,7 +101,7 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                 sdk.referral.getReferralLink().then((link) => unityInstance.SendMessage(objectName, callback, link));
             },
             'sharereferrallink': ({message}) => {
-                sdk.referral.shareLink(message !== "" ? message : undefined);
+                sdk.referral.shareLink(message);
             },
             'getreferrer': ({objectName, callback}) => {
                 sdk.referral.getReferrer().then(referrer => unityInstance.SendMessage(objectName, callback, referrer ? JSON.stringify(referrer) : 'null'));
@@ -139,6 +139,18 @@ window.dispatchUnityEvent = (eventName, param) => bufferedEvents.push([eventName
                 sdk.tma.getServerTime().then(function (data) {
                     unityInstance.SendMessage(objectName, callback, data.toISOString())
                 });
+            },
+            'shareurl': ({url, message}) => {
+                sdk.tma.share(url, message);
+            },
+            'openurl': ({url})=> {
+                sdk.tma.openLink(url);
+            },
+            'initiatewalletchange': () => {
+                sdk.wallet.changeWallet();
+            },
+            'getuserwalletaddress': ({objectName, callback}) => {
+                sdk.wallet.fetchWallet().then(({address})=>unityInstance.SendMessage(objectName, callback, address));
             }
         }
     }

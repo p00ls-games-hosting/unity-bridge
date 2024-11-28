@@ -62,7 +62,19 @@ namespace P00LS.Games
         [DllImport("__Internal")]
         public static extern void p00ls_ShareReferralLink([CanBeNull] string message);
         
-        [DllImport("Internal")]
+        [DllImport("__Internal")]
         public static extern void p00ls_GetServerTime(string objectName, string callback);
+
+        [DllImport("__Internal")]
+        public static extern void p00ls_ShareURL(string url, string message);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_OpenURL(string url);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_GetUserWalletAddress(string objectName, string callback);
+        
+        [DllImport("__Internal")]
+        public static extern void p00ls_InitiateWalletChange();
     }
 }

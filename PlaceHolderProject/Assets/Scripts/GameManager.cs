@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private UserDataUIController _userDataUI;
     private StatisticsUIController _statisticsUI;
     private LeaderboardUIController _leaderboardUI;
+    private MiniAppUIController _miniAppUI;
+    private WalletUIController _walletUI;
 
 
     private void Awake()
@@ -26,6 +28,8 @@ public class GameManager : MonoBehaviour
         _userDataUI = FindFirstObjectByType<UserDataUIController>();
         _statisticsUI = FindFirstObjectByType<StatisticsUIController>();
         _leaderboardUI = FindFirstObjectByType<LeaderboardUIController>();
+        _miniAppUI = FindFirstObjectByType<MiniAppUIController>();
+        _walletUI = FindFirstObjectByType<WalletUIController>();
 
         _auth.OnUserInfoAsked += OnUserInfoAsked;
         _purchaseUI.OnPurchaseItem += OnPurchaseItem;
@@ -48,7 +52,33 @@ public class GameManager : MonoBehaviour
         _leaderboardUI.OnGlobalLeaderboardAsked += GetGlobalLeaderboard;
         _leaderboardUI.OnLeaderboardAroundAsked += GetLeaderboardAround;
 
+        _miniAppUI.OnOpenURL += OpenURL;
+        _miniAppUI.OnShareURL += ShareURL;
+
+        _walletUI.OnWalletFetchAsked += FetchWallet;
+        _walletUI.OnWalletChangeAsked += ChangeWallet;
+
         sdk.OnPurchase += OnPurchaseDone;
+    }
+
+    private void ChangeWallet()
+    {
+        sdk.InitiateWalletChange();
+    }
+
+    private void FetchWallet()
+    {
+        sdk.GetUserWalletAddress(address => _mainUIController.Log($"Wallet address: {address}"));
+    }
+
+    private void ShareURL(string url)
+    {
+        sdk.ShareURL(url);
+    }
+
+    private void OpenURL(string url)
+    {
+        sdk.OpenURL(url);
     }
 
     private void Start()

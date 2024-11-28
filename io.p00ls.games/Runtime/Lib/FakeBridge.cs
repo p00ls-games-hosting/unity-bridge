@@ -272,6 +272,27 @@ namespace P00LS.Games
             callback.Invoke(DateTime.UtcNow);
         }
 
+        public void GetUserWalletAddress(Action<string> callback)
+        {
+            Debug.Log("GetUserWalletAddress");
+            callback.Invoke("FakeAddress");
+        }
+
+        public void InitiateWalletChange()
+        {
+            Debug.Log("Initiate Wallet Change");
+        }
+
+        public void OpenURL(string url)
+        {
+            Application.OpenURL(url);
+        }
+
+        public void ShareURL(string url, string message = null)
+        {
+            Debug.Log($"ShareURL {url} {message}");
+        }
+
         public void GetUserDataCallback(string value)
         {
         }
@@ -327,6 +348,11 @@ namespace P00LS.Games
         public void GetServerTimeCallback(string value)
         {
             Debug.Log($"GetServerTimeCallback: {value}");
+        }
+
+        public void GetUserWalletAddressCallback(string value)
+        {
+            Debug.Log($"GetUserWalletAddressCallback: {value}");
         }
     }
 }
