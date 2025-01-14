@@ -18,7 +18,6 @@ namespace P00LS.Games.Editor
         [MenuItem("Services/P00LS/Reset Template Variables")]
         public static void SetCustomTemplateVariables()
         {
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
             PlayerSettings.WebGL.nameFilesAsHashes = true;
             SetSplashScreenLogo();
         }
